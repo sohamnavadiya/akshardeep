@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { COMPANY } from "@/lib/constants";
 
 export function Hero() {
   return (
@@ -25,37 +26,31 @@ export function Hero() {
           {/* Left content */}
           <div className="lg:col-span-7">
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/15 mb-6 text-xs text-white/90 font-medium tracking-wide uppercase"
             >
-              <div className="flex items-center gap-3 mb-8">
-                <div className="h-px w-8 bg-accent" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent">
-                  Est. 2013 — Ankleshwar, India
-                </span>
-              </div>
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              Authorised Channel Partner
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-3xl sm:text-4xl lg:text-5xl xl:text-[3.5rem] font-extrabold text-white leading-[1.15] tracking-tight"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.08] tracking-tight font-sans"
             >
-              Engineering Precision for
-              <br />
-              <span className="text-accent">Industrial Flow Control</span>
+              Industrial Valves, Automation &amp; Instrumentation
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-6 text-base lg:text-lg text-text-light-muted max-w-xl leading-relaxed"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-6 text-base sm:text-lg text-white/70 max-w-2xl leading-relaxed font-sans"
             >
-              Delivering world-class valve automation, industrial instrumentation,
-              process control, and engineering solutions for mission-critical industries.
+              Authorised partner for Forbes Marshall, Intervalve, and El-O-Matic. Providing cost-effective, high-reliability flow control and process measurement solutions across India.
             </motion.p>
 
             <motion.div
@@ -64,13 +59,15 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mt-10 flex flex-wrap gap-4"
             >
-              <Link
-                href="/contact"
+              <a
+                href={`https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent("Hello Akshardeep Engineers, I would like to request a quote.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-6 py-3 text-sm font-bold uppercase tracking-wider transition-colors"
               >
                 Request a Quote
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
+              </a>
               <Link
                 href="/products"
                 className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white px-6 py-3 text-sm font-bold uppercase tracking-wider transition-colors hover:bg-white/5"

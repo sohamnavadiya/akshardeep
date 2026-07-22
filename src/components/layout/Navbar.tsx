@@ -118,12 +118,14 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <Link
-              href="/contact"
+            <a
+              href={`https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent("Hello Akshardeep Engineers, I would like to request a quote.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-accent hover:bg-accent-hover text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors"
             >
               Request Quote
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Toggle */}
@@ -173,13 +175,15 @@ export function Navbar() {
                 ))}
               </div>
               <div className="p-6 border-t border-border-default">
-                <Link
-                  href="/contact"
+                <a
+                  href={`https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent("Hello Akshardeep Engineers, I would like to request a quote.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
                   className="block w-full bg-accent text-white text-center py-3 text-sm font-bold uppercase tracking-wider"
                 >
                   Request Quote
-                </Link>
+                </a>
                 <a href={`tel:${COMPANY.phone}`} className="mt-3 flex items-center justify-center gap-2 text-sm text-steel">
                   <Phone className="w-4 h-4" /> {COMPANY.phone}
                 </a>

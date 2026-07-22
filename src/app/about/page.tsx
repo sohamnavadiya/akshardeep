@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AboutHero } from "./AboutHero";
 import { Timeline } from "./Timeline";
+import { PartnersSection } from "./PartnersSection";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export default function AboutPage() {
     <>
       <AboutHero />
       <Timeline />
+      <PartnersSection />
       <ContactCTA />
     </>
   );
