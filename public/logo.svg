@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Gear outer ring - Navy Blue -->
+  <circle cx="100" cy="100" r="60" fill="none" stroke="#2B3990" stroke-width="12"/>
+  <!-- Gear teeth - Navy Blue (top-right) -->
+  <rect x="90" y="30" width="20" height="15" fill="#2B3990" rx="2"/>
+  <rect x="130" y="45" width="15" height="20" fill="#2B3990" rx="2" transform="rotate(30 137 55)"/>
+  <rect x="150" y="75" width="15" height="20" fill="#2B3990" rx="2" transform="rotate(60 157 85)"/>
+  <rect x="150" y="110" width="15" height="20" fill="#2B3990" rx="2" transform="rotate(90 157 120)"/>
+  <!-- Gear teeth - Red (bottom-left) -->
+  <rect x="90" y="155" width="20" height="15" fill="#E31E24" rx="2"/>
+  <rect x="55" y="135" width="15" height="20" fill="#E31E24" rx="2" transform="rotate(30 62 145)"/>
+  <rect x="35" y="105" width="15" height="20" fill="#E31E24" rx="2" transform="rotate(60 42 115)"/>
+  <rect x="35" y="75" width="15" height="20" fill="#E31E24" rx="2" transform="rotate(90 42 85)"/>
+  <!-- AE monogram -->
+  <text x="100" y="115" font-family="serif" font-size="48" fill="#2B3990" text-anchor="middle" font-style="italic">AE</text>
+</svg>

@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand Colors — from Akshardeep Logo */
+  --primary: #2B3990;         /* Indigo Blue — gear/company name */
+  --primary-light: #3A4CAE;
+  --primary-medium: #1E2A6E;
+  --accent: #E31E24;          /* Red — gear accent & ENGINEERS text */
+  --accent-hover: #C41A1F;
+  --accent-muted: #8B1E1E;
+
+  /* Neutrals — industrial palette */
+  --steel: #3D4F5F;           /* Steel Grey */
+  --concrete: #6B7B8D;        /* Concrete Grey */
+  --slate: #8A9BAD;           /* Muted slate */
+  --surface: #F5F6F8;         /* Light background */
+  --surface-warm: #FAFAFA;
+  --white: #FFFFFF;
+  --charcoal: #1A1F2E;        /* Near-black */
+
+  /* Text */
+  --text-dark: #1A1F2E;
+  --text-body: #3D4F5F;
+  --text-muted: #6B7B8D;
+  --text-light: #FFFFFF;
+  --text-light-muted: #B8C5D4;
+
+  /* Borders */
+  --border-default: #D8DDE4;
+  --border-subtle: #E8ECF0;
+  --border-dark: #2A3A50;
+
+  /* Spacing */
+  --nav-height: 72px;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-medium: var(--primary-medium);
+  --color-primary-dark: var(--primary-medium);
+  --color-primary-lighter: var(--primary-light);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-muted: var(--accent-muted);
+  --color-accent-light: #F04248;
+  --color-steel: var(--steel);
+  --color-concrete: var(--concrete);
+  --color-slate: var(--slate);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface);
+  --color-surface-warm: var(--surface-warm);
+  --color-surface-card: var(--white);
+  --color-charcoal: var(--charcoal);
+  --color-text-dark: var(--text-dark);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-text-primary: var(--text-dark);
+  --color-text-secondary: var(--text-body);
+  --color-text-light: var(--text-light);
+  --color-text-light-muted: var(--text-light-muted);
+  --color-text-on-dark: var(--text-light);
+  --color-text-on-dark-muted: var(--text-light-muted);
+  --color-border: var(--border-default);
+  --color-border-default: var(--border-default);
+  --color-border-light: var(--border-subtle);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-dark: var(--border-dark);
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--white);
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Blueprint grid background utility */
+.bg-blueprint {
+  background-image:
+    linear-gradient(rgba(27, 42, 74, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 42, 74, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Technical line pattern */
+.bg-technical {
+  background-image:
+    linear-gradient(0deg, transparent 24%, rgba(27, 42, 74, 0.02) 25%, rgba(27, 42, 74, 0.02) 26%, transparent 27%, transparent 74%, rgba(27, 42, 74, 0.02) 75%, rgba(27, 42, 74, 0.02) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(27, 42, 74, 0.02) 25%, rgba(27, 42, 74, 0.02) 26%, transparent 27%, transparent 74%, rgba(27, 42, 74, 0.02) 75%, rgba(27, 42, 74, 0.02) 76%, transparent 77%, transparent);
+  background-size: 80px 80px;
+}
+
+/* Diagonal hatch pattern */
+.bg-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(27, 42, 74, 0.015) 10px,
+    rgba(27, 42, 74, 0.015) 11px
+  );
+}
