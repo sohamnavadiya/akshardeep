@@ -3,13 +3,20 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, Loader2, CheckCircle2 } from "lucide-react";
+import { trackFormSubmission } from "@/lib/analytics";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
+
+    const formData = new FormData(e.currentTarget);
+    const productCategory = (formData.get("product") as string) || "General";
+
+    trackFormSubmission("Contact Page Form", productCategory);
+
     setTimeout(() => setStatus("success"), 1500);
   };
 
@@ -50,6 +57,7 @@ export function ContactForm() {
         </label>
         <select
           id="product"
+          name="product"
           className="w-full px-4 py-3 border border-border-default bg-surface focus:border-accent focus:ring-1 focus:ring-accent/20 outline-none transition-all text-sm text-text-body"
         >
           <option value="">Select a product category</option>

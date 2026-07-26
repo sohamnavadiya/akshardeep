@@ -4,6 +4,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
+import {
+  trackPhoneClick,
+  trackEmailClick,
+  trackWhatsAppClick,
+} from "@/lib/analytics";
 
 export function ContactCTA() {
   return (
@@ -48,6 +53,7 @@ export function ContactCTA() {
                 href={`https://wa.me/${COMPANY.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick("ContactCTA WhatsApp Button")}
                 className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white px-6 py-3 text-xs font-bold uppercase tracking-wider transition-colors hover:bg-white/5"
               >
                 WhatsApp Us
@@ -66,19 +72,40 @@ export function ContactCTA() {
               <ContactRow
                 icon={<Phone className="w-4 h-4" />}
                 label="Phone"
-                values={[COMPANY.phone, COMPANY.phone2]}
+                items={[
+                  {
+                    text: COMPANY.phone,
+                    href: `tel:${COMPANY.phone}`,
+                    onClick: () => trackPhoneClick("ContactCTA Primary Phone", COMPANY.phone),
+                  },
+                  {
+                    text: COMPANY.phone2,
+                    href: `tel:${COMPANY.phone2}`,
+                    onClick: () => trackPhoneClick("ContactCTA Secondary Phone", COMPANY.phone2),
+                  },
+                ]}
               />
               <ContactRow
                 icon={<Mail className="w-4 h-4" />}
                 label="Email"
-                values={[COMPANY.email]}
+                items={[
+                  {
+                    text: COMPANY.email,
+                    href: `mailto:${COMPANY.email}`,
+                    onClick: () => trackEmailClick("ContactCTA Email", COMPANY.email),
+                  },
+                ]}
               />
               <ContactRow
                 icon={<MapPin className="w-4 h-4" />}
                 label="Location"
-                values={[
-                  `${COMPANY.address.line1}, ${COMPANY.address.line2}`,
-                  `${COMPANY.address.city}, ${COMPANY.address.state}`,
+                items={[
+                  {
+                    text: `${COMPANY.address.line1}, ${COMPANY.address.line2}`,
+                  },
+                  {
+                    text: `${COMPANY.address.city}, ${COMPANY.address.state}`,
+                  },
                 ]}
               />
               <div className="pt-4 border-t border-white/10">
@@ -98,11 +125,11 @@ export function ContactCTA() {
 function ContactRow({
   icon,
   label,
-  values,
+  items,
 }: {
   icon: React.ReactNode;
   label: string;
-  values: string[];
+  items: { text: string; href?: string; onClick?: () => void }[];
 }) {
   return (
     <div className="flex gap-4">
@@ -111,10 +138,24 @@ function ContactRow({
         <p className="text-[11px] font-semibold uppercase tracking-wider text-text-light-muted mb-1">
           {label}
         </p>
-        {values.map((v) => (
-          <p key={v} className="text-sm text-white">{v}</p>
-        ))}
+        {items.map((item) =>
+          item.href ? (
+            <a
+              key={item.text}
+              href={item.href}
+              onClick={item.onClick}
+              className="text-sm text-white hover:text-accent transition-colors block"
+            >
+              {item.text}
+            </a>
+          ) : (
+            <p key={item.text} className="text-sm text-white">
+              {item.text}
+            </p>
+          )
+        )}
       </div>
     </div>
   );
 }
+

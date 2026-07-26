@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { COMPANY, NAV_LINKS, PRODUCTS } from "@/lib/constants";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { trackPhoneClick, trackEmailClick } from "@/lib/analytics";
 
 export function Footer() {
   return (
@@ -12,13 +14,22 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
           <div>
-            <Link href="/" className="inline-block mb-5">
-              <span className="text-lg font-extrabold tracking-tight text-white block">
-                AKSHARDEEP
-              </span>
-              <span className="text-[10px] font-bold tracking-[0.25em] text-accent">
-                ENGINEERS
-              </span>
+            <Link href="/" className="flex items-center gap-3 mb-5">
+              <Image
+                src="/logo.png"
+                alt="Akshardeep Engineers Logo"
+                width={40}
+                height={40}
+                className="w-10 h-10 object-contain bg-white rounded-full p-1"
+              />
+              <div>
+                <span className="text-lg font-extrabold tracking-tight text-white block leading-tight">
+                  AKSHARDEEP
+                </span>
+                <span className="text-[10px] font-bold tracking-[0.25em] text-accent uppercase">
+                  ENGINEERS
+                </span>
+              </div>
             </Link>
             <p className="text-sm leading-relaxed text-text-light-muted max-w-xs mb-6">
               Authorised channel partner of Forbes Marshall, Intervalve &amp; El-O-Matic.
@@ -84,19 +95,31 @@ export function Footer() {
                 </span>
               </li>
               <li>
-                <a href={`tel:${COMPANY.phone}`} className="flex items-center gap-3 text-sm hover:text-white transition-colors">
+                <a
+                  href={`tel:${COMPANY.phone}`}
+                  onClick={() => trackPhoneClick("Footer Phone 1", COMPANY.phone)}
+                  className="flex items-center gap-3 text-sm hover:text-white transition-colors"
+                >
                   <Phone className="w-4 h-4 text-accent shrink-0" />
                   {COMPANY.phone}
                 </a>
               </li>
               <li>
-                <a href={`tel:${COMPANY.phone2}`} className="flex items-center gap-3 text-sm hover:text-white transition-colors">
+                <a
+                  href={`tel:${COMPANY.phone2}`}
+                  onClick={() => trackPhoneClick("Footer Phone 2", COMPANY.phone2)}
+                  className="flex items-center gap-3 text-sm hover:text-white transition-colors"
+                >
                   <Phone className="w-4 h-4 text-accent shrink-0" />
                   {COMPANY.phone2}
                 </a>
               </li>
               <li>
-                <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-3 text-sm hover:text-white transition-colors">
+                <a
+                  href={`mailto:${COMPANY.email}`}
+                  onClick={() => trackEmailClick("Footer Email", COMPANY.email)}
+                  className="flex items-center gap-3 text-sm hover:text-white transition-colors"
+                >
                   <Mail className="w-4 h-4 text-accent shrink-0" />
                   {COMPANY.email}
                 </a>

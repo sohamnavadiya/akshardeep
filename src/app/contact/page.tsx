@@ -3,9 +3,18 @@ import { ContactForm } from "./ContactForm";
 import { ContactInfo } from "./ContactInfo";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Us — Akshardeep Engineers Ankleshwar",
   description:
-    "Get in touch with Akshardeep Engineers for industrial valve solutions, custom engineering, and quotations. Ankleshwar, Gujarat.",
+    "Get in touch with Akshardeep Engineers for industrial valve solutions, custom engineering, and RFQ quotations. Located at GIDC Ankleshwar, Gujarat.",
+  alternates: {
+    canonical: "https://www.akshardeep.com/contact",
+  },
+  openGraph: {
+    title: "Contact Us — Akshardeep Engineers Ankleshwar",
+    description:
+      "Get in touch with Akshardeep Engineers for industrial valve solutions, custom engineering, and RFQ quotations. Located at GIDC Ankleshwar, Gujarat.",
+    url: "https://www.akshardeep.com/contact",
+  },
 };
 
 export default function ContactPage() {

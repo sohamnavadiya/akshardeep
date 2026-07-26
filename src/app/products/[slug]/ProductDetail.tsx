@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { COMPANY, type Product } from "@/lib/constants";
+import { trackQuoteRequest, trackWhatsAppClick } from "@/lib/analytics";
 
 type Props = {
   product: Product;
@@ -164,6 +165,7 @@ export function ProductDetail({ product, relatedProducts }: Props) {
                   href={whatsappQuoteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackQuoteRequest("Product Page Request Quote", product.name)}
                   className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white text-xs font-bold uppercase tracking-[0.15em] px-6 py-3.5 transition-colors shadow-lg hover:shadow-accent/20"
                 >
                   Request a Quote
@@ -175,6 +177,7 @@ export function ProductDetail({ product, relatedProducts }: Props) {
                   href={whatsappQuoteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick("Product Page WhatsApp", product.name)}
                   className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white text-xs font-bold uppercase tracking-[0.15em] px-6 py-3.5 transition-colors"
                 >
                   WhatsApp

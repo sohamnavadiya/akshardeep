@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
+import { trackQuoteRequest, trackNavClick } from "@/lib/analytics";
 
 export function Hero() {
   return (
@@ -63,6 +64,7 @@ export function Hero() {
                 href={`https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent("Hello Akshardeep Engineers, I would like to request a quote.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackQuoteRequest("Hero Section Button")}
                 className="group inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-6 py-3 text-sm font-bold uppercase tracking-wider transition-colors"
               >
                 Request a Quote
@@ -70,6 +72,7 @@ export function Hero() {
               </a>
               <Link
                 href="/products"
+                onClick={() => trackNavClick("Hero Explore Products", "/products")}
                 className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white px-6 py-3 text-sm font-bold uppercase tracking-wider transition-colors hover:bg-white/5"
               >
                 Explore Products

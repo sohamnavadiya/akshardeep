@@ -3,6 +3,11 @@
 import { useEffect, useState, useRef } from "react";
 import { Phone, Mail } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
+import {
+  trackWhatsAppClick,
+  trackPhoneClick,
+  trackEmailClick,
+} from "@/lib/analytics";
 
 export function FloatingContactButtons() {
   const [visible, setVisible] = useState(true);
@@ -67,6 +72,7 @@ export function FloatingContactButtons() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
+          onClick={() => trackWhatsAppClick("Floating Button Desktop")}
           className="group relative w-[52px] h-[52px] rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.45)] transition-all duration-200 hover:scale-110 active:scale-95"
         >
           <WaIcon />
@@ -78,6 +84,7 @@ export function FloatingContactButtons() {
           id="float-call-desktop"
           href={callHref}
           aria-label="Call Akshardeep Engineers"
+          onClick={() => trackPhoneClick("Floating Button Desktop", COMPANY.phone)}
           className="group relative w-[52px] h-[52px] rounded-full bg-[#0057FF] hover:bg-[#0046D4] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(0,87,255,0.4)] transition-all duration-200 hover:scale-110 active:scale-95"
         >
           <Phone className="w-5 h-5" strokeWidth={2.2} />
@@ -89,6 +96,7 @@ export function FloatingContactButtons() {
           id="float-email-desktop"
           href={mailHref}
           aria-label="Email Akshardeep Engineers"
+          onClick={() => trackEmailClick("Floating Button Desktop", COMPANY.email)}
           className="group relative w-[52px] h-[52px] rounded-full bg-[#E05C1A] hover:bg-[#C44F14] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(224,92,26,0.4)] transition-all duration-200 hover:scale-110 active:scale-95"
         >
           <Mail className="w-5 h-5" strokeWidth={2.2} />
@@ -117,6 +125,7 @@ export function FloatingContactButtons() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
+          onClick={() => trackWhatsAppClick("Floating Button Mobile")}
           className="w-[48px] h-[48px] rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(37,211,102,0.45)] active:scale-95 transition-transform"
         >
           <WaIcon />
@@ -127,6 +136,7 @@ export function FloatingContactButtons() {
           id="float-call-mobile"
           href={callHref}
           aria-label="Call Akshardeep Engineers"
+          onClick={() => trackPhoneClick("Floating Button Mobile", COMPANY.phone)}
           className="w-[48px] h-[48px] rounded-full bg-[#0057FF] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,87,255,0.4)] active:scale-95 transition-transform"
         >
           <Phone className="w-5 h-5" strokeWidth={2.2} />
@@ -137,6 +147,7 @@ export function FloatingContactButtons() {
           id="float-email-mobile"
           href={mailHref}
           aria-label="Email Akshardeep Engineers"
+          onClick={() => trackEmailClick("Floating Button Mobile", COMPANY.email)}
           className="w-[48px] h-[48px] rounded-full bg-[#E05C1A] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(224,92,26,0.4)] active:scale-95 transition-transform"
         >
           <Mail className="w-5 h-5" strokeWidth={2.2} />

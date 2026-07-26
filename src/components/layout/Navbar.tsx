@@ -2,10 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { NAV_LINKS, COMPANY } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import {
+  trackPhoneClick,
+  trackEmailClick,
+  trackQuoteRequest,
+} from "@/lib/analytics";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,11 +36,19 @@ export function Navbar() {
         <div className="max-w-[1340px] mx-auto px-6 py-2 flex items-center justify-between">
           <span>Authorised Channel Partner — Forbes Marshall | Intervalve | El-O-Matic</span>
           <div className="flex items-center gap-6">
-            <a href={`tel:${COMPANY.phone}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
+            <a
+              href={`tel:${COMPANY.phone}`}
+              onClick={() => trackPhoneClick("Navbar Top Bar", COMPANY.phone)}
+              className="flex items-center gap-1.5 hover:text-white transition-colors"
+            >
               <Phone className="w-3 h-3" />
               {COMPANY.phone}
             </a>
-            <a href={`mailto:${COMPANY.email}`} className="hover:text-white transition-colors">
+            <a
+              href={`mailto:${COMPANY.email}`}
+              onClick={() => trackEmailClick("Navbar Top Bar", COMPANY.email)}
+              className="hover:text-white transition-colors"
+            >
               {COMPANY.email}
             </a>
           </div>
@@ -54,9 +68,14 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
             <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 bg-primary flex items-center justify-center">
-                <span className="text-white font-black text-lg leading-none">A</span>
-              </div>
+              <Image
+                src="/logo.png"
+                alt="Akshardeep Engineers Logo"
+                width={44}
+                height={44}
+                className="w-11 h-11 object-contain"
+                priority
+              />
               <div>
                 <span className="text-base font-extrabold tracking-tight text-primary block leading-tight">
                   AKSHARDEEP
@@ -122,6 +141,7 @@ export function Navbar() {
               href={`https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent("Hello Akshardeep Engineers, I would like to request a quote.")}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackQuoteRequest("Navbar Desktop Button")}
               className="bg-accent hover:bg-accent-hover text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors"
             >
               Request Quote
@@ -157,7 +177,19 @@ export function Navbar() {
               className="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-2xl flex flex-col"
             >
               <div className="p-6 border-b border-border-default flex items-center justify-between">
-                <span className="font-extrabold text-primary tracking-tight">AKSHARDEEP</span>
+                <div className="flex items-center gap-2.5">
+                  <Image
+                    src="/logo.png"
+                    alt="Akshardeep Engineers Logo"
+                    width={36}
+                    height={36}
+                    className="w-9 h-9 object-contain"
+                  />
+                  <div>
+                    <span className="font-extrabold text-primary tracking-tight text-sm block leading-none">AKSHARDEEP</span>
+                    <span className="text-[9px] font-bold tracking-[0.2em] text-accent uppercase block mt-0.5">ENGINEERS</span>
+                  </div>
+                </div>
                 <button onClick={() => setMobileOpen(false)} aria-label="Close menu">
                   <X className="w-5 h-5 text-steel" />
                 </button>
@@ -179,12 +211,19 @@ export function Navbar() {
                   href={`https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent("Hello Akshardeep Engineers, I would like to request a quote.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setMobileOpen(false)}
+                  onClick={() => {
+                    trackQuoteRequest("Navbar Mobile Menu Button");
+                    setMobileOpen(false);
+                  }}
                   className="block w-full bg-accent text-white text-center py-3 text-sm font-bold uppercase tracking-wider"
                 >
                   Request Quote
                 </a>
-                <a href={`tel:${COMPANY.phone}`} className="mt-3 flex items-center justify-center gap-2 text-sm text-steel">
+                <a
+                  href={`tel:${COMPANY.phone}`}
+                  onClick={() => trackPhoneClick("Navbar Mobile Menu", COMPANY.phone)}
+                  className="mt-3 flex items-center justify-center gap-2 text-sm text-steel"
+                >
                   <Phone className="w-4 h-4" /> {COMPANY.phone}
                 </a>
               </div>

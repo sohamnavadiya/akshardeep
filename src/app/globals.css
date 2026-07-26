@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand Colors — from Akshardeep Logo */
-  --primary: #2B3990;         /* Indigo Blue — gear/company name */
-  --primary-light: #3A4CAE;
-  --primary-medium: #1E2A6E;
-  --accent: #E31E24;          /* Red — gear accent & ENGINEERS text */
-  --accent-hover: #C41A1F;
-  --accent-muted: #8B1E1E;
+  /* Brand Colors — extracted directly from official Akshardeep Logo (logo.png) */
+  --primary: #29166F;         /* Royal Indigo Navy Blue — gear/company name */
+  --primary-light: #39248E;
+  --primary-medium: #1C0D52;
+  --accent: #DA251C;          /* Crimson Red — gear accent & ENGINEERS text */
+  --accent-hover: #B81B13;
+  --accent-muted: #80120B;
 
   /* Neutrals — industrial palette */
   --steel: #3D4F5F;           /* Steel Grey */

@@ -3,9 +3,18 @@ import { ProductsListing } from "./ProductsListing";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 
 export const metadata: Metadata = {
-  title: "Products",
+  title: "Industrial Valves & Process Catalog",
   description:
-    "Complete range of industrial valves, actuators, instrumentation and automation solutions. Butterfly, Ball, Gate, Globe, Check valves, pressure gauges, flow meters and more.",
+    "Explore our complete range of industrial valves, pneumatic actuators, instrumentation, and valve automation solutions. Butterfly, Ball, Gate, Globe, Check valves, pressure gauges, and flow meters.",
+  alternates: {
+    canonical: "https://www.akshardeep.com/products",
+  },
+  openGraph: {
+    title: "Industrial Valves & Process Catalog | Akshardeep Engineers",
+    description:
+      "Explore our complete range of industrial valves, pneumatic actuators, instrumentation, and valve automation solutions. Forbes Marshall, Intervalve & El-O-Matic products.",
+    url: "https://www.akshardeep.com/products",
+  },
 };
 
 export default function ProductsPage() {

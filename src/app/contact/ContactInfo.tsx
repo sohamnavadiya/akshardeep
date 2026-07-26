@@ -3,6 +3,11 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, MessageCircle, Clock } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
+import {
+  trackPhoneClick,
+  trackEmailClick,
+  trackWhatsAppClick,
+} from "@/lib/analytics";
 
 export function ContactInfo() {
   return (
@@ -19,28 +24,73 @@ export function ContactInfo() {
         </h3>
 
         <div className="space-y-4">
-          <ContactItem
-            icon={<Phone className="w-4 h-4" />}
-            primary={COMPANY.phone}
-            secondary={COMPANY.phone2}
-            href={`tel:${COMPANY.phone}`}
-          />
-          <ContactItem
-            icon={<Mail className="w-4 h-4" />}
-            primary={COMPANY.email}
-            secondary="Email enquiries"
-            href={`mailto:${COMPANY.email}`}
-          />
-          <ContactItem
-            icon={<MapPin className="w-4 h-4" />}
-            primary={`${COMPANY.address.line1}`}
-            secondary={`${COMPANY.address.line2}, ${COMPANY.address.city}, ${COMPANY.address.state}`}
-          />
-          <ContactItem
-            icon={<Clock className="w-4 h-4" />}
-            primary="Mon – Sat: 9:00 AM – 6:30 PM"
-            secondary="Indian Standard Time (IST)"
-          />
+          {/* Phone Numbers */}
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 bg-surface border border-border-default flex items-center justify-center shrink-0 text-accent">
+              <Phone className="w-4 h-4" />
+            </div>
+            <div>
+              <a
+                href={`tel:${COMPANY.phone}`}
+                onClick={() => trackPhoneClick("Contact Page Primary", COMPANY.phone)}
+                className="text-sm font-semibold text-text-dark hover:text-accent transition-colors block"
+              >
+                {COMPANY.phone}
+              </a>
+              <a
+                href={`tel:${COMPANY.phone2}`}
+                onClick={() => trackPhoneClick("Contact Page Secondary", COMPANY.phone2)}
+                className="text-xs font-medium text-text-muted hover:text-accent transition-colors block mt-0.5"
+              >
+                {COMPANY.phone2}
+              </a>
+            </div>
+          </div>
+
+          {/* Email */}
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 bg-surface border border-border-default flex items-center justify-center shrink-0 text-accent">
+              <Mail className="w-4 h-4" />
+            </div>
+            <div>
+              <a
+                href={`mailto:${COMPANY.email}`}
+                onClick={() => trackEmailClick("Contact Page Email", COMPANY.email)}
+                className="text-sm font-semibold text-text-dark hover:text-accent transition-colors block"
+              >
+                {COMPANY.email}
+              </a>
+              <p className="text-xs text-text-muted">Email enquiries</p>
+            </div>
+          </div>
+
+          {/* Address */}
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 bg-surface border border-border-default flex items-center justify-center shrink-0 text-accent">
+              <MapPin className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-text-dark">
+                {COMPANY.address.line1}
+              </p>
+              <p className="text-xs text-text-muted">
+                {COMPANY.address.line2}, {COMPANY.address.city}, {COMPANY.address.state}
+              </p>
+            </div>
+          </div>
+
+          {/* Business Hours */}
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 bg-surface border border-border-default flex items-center justify-center shrink-0 text-accent">
+              <Clock className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-text-dark">
+                Mon – Sat: 9:00 AM – 6:30 PM
+              </p>
+              <p className="text-xs text-text-muted">Indian Standard Time (IST)</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -49,6 +99,7 @@ export function ContactInfo() {
         href={`https://wa.me/${COMPANY.whatsapp}`}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick("Contact Page WhatsApp Card")}
         className="block bg-white border border-border-default hover:border-[#25D366] p-5 transition-colors group"
       >
         <div className="flex items-center gap-3">
@@ -57,7 +108,7 @@ export function ContactInfo() {
           </div>
           <div>
             <p className="text-sm font-bold text-text-dark group-hover:text-[#25D366] transition-colors">
-              WhatsApp
+              WhatsApp (+91 94294 83636)
             </p>
             <p className="text-xs text-text-muted">
               Quick connect for instant response
@@ -79,32 +130,3 @@ export function ContactInfo() {
   );
 }
 
-function ContactItem({
-  icon,
-  primary,
-  secondary,
-  href,
-}: {
-  icon: React.ReactNode;
-  primary: string;
-  secondary: string;
-  href?: string;
-}) {
-  const Wrapper = href ? "a" : "div";
-  return (
-    <Wrapper
-      {...(href ? { href } : {})}
-      className="flex items-start gap-3 group"
-    >
-      <div className="w-8 h-8 bg-surface border border-border-default flex items-center justify-center shrink-0 text-accent">
-        {icon}
-      </div>
-      <div>
-        <p className="text-sm font-semibold text-text-dark group-hover:text-accent transition-colors">
-          {primary}
-        </p>
-        <p className="text-xs text-text-muted">{secondary}</p>
-      </div>
-    </Wrapper>
-  );
-}
