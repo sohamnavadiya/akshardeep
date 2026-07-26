@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { PRODUCTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { trackProductClick, trackCategoryFilter } from "@/lib/analytics";
 
 const categories = ["All", ...Array.from(new Set(PRODUCTS.map((p) => p.category)))];
 
@@ -31,7 +32,10 @@ export function ProductsListing() {
         {categories.map((cat) => (
           <button
             key={cat}
-            onClick={() => setActive(cat)}
+            onClick={() => {
+              setActive(cat);
+              trackCategoryFilter(cat);
+            }}
             className={cn(
               "px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 rounded-sm border",
               active === cat
@@ -67,7 +71,17 @@ export function ProductsListing() {
               onHoverStart={() => setHoveredSlug(product.slug)}
               onHoverEnd={() => setHoveredSlug(null)}
             >
-              <Link href={`/products/${product.slug}`} className="block h-full group">
+              <Link
+                href={`/products/${product.slug}`}
+                onClick={() =>
+                  trackProductClick(
+                    product.name,
+                    product.category,
+                    "Products Catalog Grid"
+                  )
+                }
+                className="block h-full group"
+              >
                 <div
                   className={cn(
                     "bg-white border rounded-sm overflow-hidden flex flex-col h-full transition-all duration-300",

@@ -89,17 +89,50 @@ export function trackFormSubmission(formName: string, productCategory?: string) 
 }
 
 // 6. Product Item View / Clicks
-export function trackProductClick(productName: string, productCategory?: string) {
+export function trackProductClick(
+  productName: string,
+  productCategory?: string,
+  location?: string
+) {
+  const locPrefix = location ? `[${location}] ` : "";
   trackEvent({
     action: "select_content",
     category: "Product",
     content_type: "product",
     item_id: productName,
-    label: productCategory ? `${productCategory} - ${productName}` : productName,
+    item_name: productName,
+    item_category: productCategory,
+    click_location: location,
+    label: `${locPrefix}${productCategory ? `${productCategory} - ` : ""}${productName}`,
   });
 }
 
-// 7. Navigation & Link Clicks
+// 7. Product Variant Selection Toggles
+export function trackProductVariantSelect(
+  productName: string,
+  variantName: string,
+  model?: string
+) {
+  trackEvent({
+    action: "select_variant",
+    category: "Product Variant",
+    product_name: productName,
+    variant_name: variantName,
+    variant_model: model,
+    label: `${productName} -> ${variantName}${model ? ` (${model})` : ""}`,
+  });
+}
+
+// 8. Catalog Category Filter Toggles
+export function trackCategoryFilter(categoryName: string) {
+  trackEvent({
+    action: "filter_category",
+    category: "Catalog",
+    label: `Filter: ${categoryName}`,
+  });
+}
+
+// 9. Navigation & Link Clicks
 export function trackNavClick(linkName: string, destination: string) {
   trackEvent({
     action: "navigation_click",
@@ -107,3 +140,4 @@ export function trackNavClick(linkName: string, destination: string) {
     label: `${linkName} -> ${destination}`,
   });
 }
+

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PRODUCTS } from "@/lib/constants";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { trackProductClick } from "@/lib/analytics";
 
 export function ProductHighlights() {
   return (
@@ -26,6 +27,13 @@ export function ProductHighlights() {
             >
               <Link
                 href={`/products/${product.slug}`}
+                onClick={() =>
+                  trackProductClick(
+                    product.name,
+                    product.category,
+                    "Homepage Product Highlights"
+                  )
+                }
                 className="group block h-full bg-white rounded-2xl p-5 border border-border-light hover:border-accent/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 {/* Icon */}

@@ -5,7 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { COMPANY, type Product } from "@/lib/constants";
-import { trackQuoteRequest, trackWhatsAppClick } from "@/lib/analytics";
+import {
+  trackQuoteRequest,
+  trackWhatsAppClick,
+  trackProductClick,
+  trackProductVariantSelect,
+} from "@/lib/analytics";
 
 type Props = {
   product: Product;
@@ -255,7 +260,10 @@ export function ProductDetail({ product, relatedProducts }: Props) {
                 {product.subProducts!.map((sub, idx) => (
                   <motion.button
                     key={sub.name}
-                    onClick={() => setActiveVariant(idx)}
+                    onClick={() => {
+                      setActiveVariant(idx);
+                      trackProductVariantSelect(product.name, sub.name, sub.model);
+                    }}
                     variants={fadeUp}
                     initial="hidden"
                     whileInView="visible"
@@ -340,6 +348,12 @@ export function ProductDetail({ product, relatedProducts }: Props) {
                       href={whatsappQuoteUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        trackQuoteRequest(
+                          "Product Variant Section",
+                          `${product.name} - ${activeSubProduct.name}`
+                        )
+                      }
                       className="inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 transition-colors"
                     >
                       Request Quote for {activeSubProduct.name}
@@ -445,7 +459,17 @@ export function ProductDetail({ product, relatedProducts }: Props) {
                   viewport={{ once: true }}
                   custom={i}
                 >
-                  <Link href={`/products/${rel.slug}`} className="block group">
+                  <Link
+                    href={`/products/${rel.slug}`}
+                    onClick={() =>
+                      trackProductClick(
+                        rel.name,
+                        rel.category,
+                        "Related Products Section"
+                      )
+                    }
+                    className="block group"
+                  >
                     <div className="bg-white border border-border-default group-hover:border-accent group-hover:-translate-y-1 group-hover:shadow-lg transition-all duration-300 overflow-hidden">
                       <div className="relative h-44 bg-surface flex items-center justify-center">
                         <Image

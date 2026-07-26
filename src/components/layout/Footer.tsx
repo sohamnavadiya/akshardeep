@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { COMPANY, NAV_LINKS, PRODUCTS } from "@/lib/constants";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { trackPhoneClick, trackEmailClick } from "@/lib/analytics";
+import { trackPhoneClick, trackEmailClick, trackProductClick } from "@/lib/analytics";
 
 export function Footer() {
   return (
@@ -52,6 +52,9 @@ export function Footer() {
                 <li key={p.slug}>
                   <Link
                     href={`/products#${p.slug}`}
+                    onClick={() =>
+                      trackProductClick(p.name, p.category, "Footer Product Link")
+                    }
                     className="text-sm text-text-light-muted hover:text-white transition-colors"
                   >
                     {p.name}
