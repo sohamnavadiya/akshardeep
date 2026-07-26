@@ -2,22 +2,47 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Loader2, CheckCircle2 } from "lucide-react";
-import { trackFormSubmission } from "@/lib/analytics";
+import { Send, Loader2, CheckCircle2, MessageSquare } from "lucide-react";
+import { trackFormSubmission, trackWhatsAppClick } from "@/lib/analytics";
+import { COMPANY } from "@/lib/constants";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [whatsappUrl, setWhatsappUrl] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
 
     const formData = new FormData(e.currentTarget);
-    const productCategory = (formData.get("product") as string) || "General";
+    const name = (formData.get("name") as string) || "";
+    const email = (formData.get("email") as string) || "";
+    const phone = (formData.get("phone") as string) || "";
+    const company = (formData.get("company") as string) || "";
+    const product = (formData.get("product") as string) || "General Enquiry";
+    const message = (formData.get("message") as string) || "";
 
-    trackFormSubmission("Contact Page Form", productCategory);
+    trackFormSubmission("Contact Page Form", product);
+    trackWhatsAppClick("Contact Form Submission", product);
 
-    setTimeout(() => setStatus("success"), 1500);
+    const formattedText = `*New Website Enquiry* 📩
+
+👤 *Name:* ${name}
+✉️ *Email:* ${email}
+📞 *Phone:* ${phone || "Not provided"}
+🏢 *Company:* ${company || "Not provided"}
+📦 *Product Interest:* ${product}
+
+💬 *Requirements:*
+${message}`;
+
+    const url = `https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent(formattedText)}`;
+    setWhatsappUrl(url);
+
+    setTimeout(() => {
+      setStatus("success");
+      window.open(url, "_blank", "noopener,noreferrer");
+    }, 600);
   };
 
   if (status === "success") {
@@ -28,10 +53,28 @@ export function ContactForm() {
         className="bg-white border border-border-default p-10 text-center"
       >
         <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto mb-4" />
-        <h3 className="text-xl font-bold text-text-dark">Thank You</h3>
+        <h3 className="text-xl font-bold text-text-dark">Redirecting to WhatsApp...</h3>
         <p className="mt-2 text-sm text-text-body">
-          Your enquiry has been received. Our team will respond within 24 hours.
+          Your enquiry has been prepared. If WhatsApp didn't open automatically, click the button below to send your enquiry directly to +91 94294 83636.
         </p>
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold px-6 py-3 text-sm rounded transition-colors"
+          >
+            <MessageSquare className="w-5 h-5" />
+            Open WhatsApp
+          </a>
+          <button
+            type="button"
+            onClick={() => setStatus("idle")}
+            className="text-xs text-text-body underline hover:text-text-dark transition-colors"
+          >
+            Submit Another Enquiry
+          </button>
+        </div>
       </motion.div>
     );
   }
@@ -61,14 +104,14 @@ export function ContactForm() {
           className="w-full px-4 py-3 border border-border-default bg-surface focus:border-accent focus:ring-1 focus:ring-accent/20 outline-none transition-all text-sm text-text-body"
         >
           <option value="">Select a product category</option>
-          <option value="butterfly-valves">Butterfly Valves</option>
-          <option value="ball-valves">Ball Valves</option>
-          <option value="gate-globe-check">Gate / Globe / Check Valves</option>
-          <option value="actuators">Pneumatic Actuators</option>
-          <option value="automation">Valve Automation</option>
-          <option value="instrumentation">Instrumentation</option>
-          <option value="services">Valve Repair / Services</option>
-          <option value="other">Other</option>
+          <option value="Butterfly Valves">Butterfly Valves</option>
+          <option value="Ball Valves">Ball Valves</option>
+          <option value="Gate / Globe / Check Valves">Gate / Globe / Check Valves</option>
+          <option value="Pneumatic Actuators">Pneumatic Actuators</option>
+          <option value="Valve Automation">Valve Automation</option>
+          <option value="Instrumentation">Instrumentation</option>
+          <option value="Valve Repair / Services">Valve Repair / Services</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 
@@ -78,6 +121,7 @@ export function ContactForm() {
         </label>
         <textarea
           id="message"
+          name="message"
           required
           rows={4}
           className="w-full px-4 py-3 border border-border-default bg-surface focus:border-accent focus:ring-1 focus:ring-accent/20 outline-none transition-all text-sm resize-none"
@@ -122,6 +166,7 @@ function FormField({
       <input
         type={type}
         id={id}
+        name={id}
         required={required}
         className="w-full px-4 py-3 border border-border-default bg-surface focus:border-accent focus:ring-1 focus:ring-accent/20 outline-none transition-all text-sm"
         placeholder={placeholder}
