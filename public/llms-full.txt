@@ -1,0 +1,175 @@
+# Akshardeep Engineers — Comprehensive Information & Documentation
+
+> Authorised Channel Partner for Forbes Marshall, Intervalve, and El-O-Matic. Providing cost-effective, efficient, and robust solutions for industrial flow control, pneumatic valve automation, process instrumentation, and diaphragm seal replacement services in Ankleshwar, Gujarat, India.
+
+---
+
+## 1. Executive Summary
+
+Established in 2013, Akshardeep Engineers is a premier engineering solutions provider based in Ankleshwar GIDC, Gujarat — India's chemical and industrial hub. With over 14 years of industry expertise, a 5,420+ Sq. Ft. state-of-the-art facility, and partnerships with global industrial pioneers, Akshardeep Engineers serves over 200+ clients across chemical, pharmaceutical, oil & gas, power, steel, fertilizer, and manufacturing industries.
+
+---
+
+## 2. Core Information & Contact Details
+
+- **Company Name**: Akshardeep Engineers
+- **Tagline**: Precision in Measuring. Perfection in Control. Proven Performance.
+- **Year Established**: 2013
+- **Experience**: 14+ Years
+- **Website**: https://www.akshardeep.com
+- **Sales Email**: sales@akshardeep.com
+- **Primary Phone**: +91 94294 83636
+- **Secondary Phone**: +91 99798 99983
+- **WhatsApp**: +91 94294 83636
+- **Facility Address**: Plot No. 2900/90, Old Indokem LTD., Near Atul LTD., Ankleshwar GIDC, Ankleshwar, Gujarat 393002, India
+- **Facility Size**: 5,420+ Sq. Ft. (Engineering, Assembly, Testing, Repair & Warehouse)
+
+---
+
+## 3. Authorised Channel Partnerships & Brands
+
+### Forbes Marshall (HVY) Pvt. Ltd.
+Authorised partner for steam traps (thermodynamic, ball float, bimetallic), control valves (1/2" to 16"), flowmeters, and steam/process energy conservation products.
+
+### Intervalve Poonamwala Pvt. Ltd.
+Authorised partner for industrial butterfly valves (concentric bonded/replaceable seat, PTFE seated, triple offset HP), gate valves, globe valves, check valves, and ball valves.
+
+### El-O-Matic India Pvt. Ltd.
+Authorised partner for rack-and-pinion pneumatic actuators (P-Series & E-Series, 4 to 4022 Nm torque), SIL 3 certified ON/OFF valve automation assemblies, positioners, and limit switch boxes.
+
+### Badotherm India (JV Badotherm Holland Inc., Est. 1957)
+High-quality diaphragm seal manufacturing and transmitter seal replacement service for all major transmitter brands (Emerson Rosemount, Yokogawa, Endress+Hauser, ABB, Siemens, Honeywell).
+
+### Additional Supported Brands
+Badotherm, Yokogawa, ABB, Emerson, Rotork, Endress+Hauser, Siemens, Honeywell.
+
+---
+
+## 4. Product Portfolio & Technical Specifications
+
+### 4.1 Butterfly Valves
+- **Models**: IVGKL, IVGKB, IVTLB, IVDF, IVGKR, IVTL, IVEX-T, IVEX-M, IVTEX
+- **Size Range**: 40 NB to 1200 NB (Concentric) | 50 NB to 750 NB (High Performance)
+- **Pressure Rating**: PN10, PN16 | ASME Class #150, #300, #600
+- **Seat Options**: Nitrile, EPDM, Neoprene, Hypalon, Viton, Silicon, PTFE, GFT, Inconel-625
+- **Design Standards**: API 609, ISO 5752, BS EN558
+- **Operating Temp**: -50°C to +540°C
+
+### 4.2 Ball Valves
+- **Configurations**: 2/3 Piece Trunnion Mounted, 2 Piece Floating, 3 Piece Forged Steel, Jacketed Floating, 3-Way Ball Valves, Tank Bottom Ball Valves
+- **Size Range**: 15 NB to 700 NB
+- **Pressure Rating**: ASME Class #150 to Class #2500 | Class #800 (Forged)
+- **Seat Options**: PTFE, GFT, CFT, Devlon, PEEK, Metal Seated (CRC / TCC / Stellite)
+- **Testing Standards**: API 6D, BS EN ISO 5208, API 598, BS EN ISO 17292
+- **Features**: Fire Safe (API 607), Full Bore, Anti-Static, SIL Rated
+
+### 4.3 Gate, Globe & Check Valves
+- **Types**: Cast Steel Gate/Globe/Check, Forged Steel Gate/Globe, Dual Plate Check, Wafer Type Single Plate Check (IVC / IVCT)
+- **Size Range**: 15 NB to 1500 NB
+- **Pressure Rating**: ASME Class #150, #300, #600 (Cast) | Class #150 to #2500 (Forged)
+- **Design Standards**: API 600, BS 1873, BS 1868, API 602, API 594
+- **Testing Standard**: API 598
+
+### 4.4 Specialty Valves & Accessories
+- **Lined Valves**: PFA / FEP Lined Ball, Butterfly & Plug Valves (15 mm to 300 mm)
+- **Jacketed Valves**: Jacketed Floating Ball Valves (15 mm to 250 mm NB, ASME #150 & #300)
+- **3-Way Valves**: T-Port & L-Port Floating Ball Valves
+- **Strainers**: Y-Type Strainers (25 NB to 150 NB) and Basket Strainers (SS304/SS316/Duplex mesh)
+- **Sight Glasses**: Full View Sight Glasses & Double Window Sight Glasses (15 NB to 150 NB, up to 10 kg/cm²)
+
+### 4.5 Valve Automation
+- **Actuators**: El-O-Matic Single Acting (SA) & Double Acting (DA) Rack & Pinion
+- **P-Series Torque**: 4 to 4022 Nm @ 3–7 Bar air supply (6–14 springs)
+- **E-Series Torque**: 4 to 1423 Nm @ 3–6 Bar air supply (3–6 springs)
+- **Certifications**: SIL 3 Certified, Fire Safe, 5 Lakh Cycles Minimum Life
+- **Accessories**: Smart Positioners (HART/Modbus), Solenoid Valves (3/2, 5/2 way), Limit Switches, Air Filter Regulators (AFR), SCADA/DCS Control Panels
+
+### 4.6 Diaphragm Seal Replacement (Badotherm Partnership)
+- **Concept**: Replace the failed diaphragm seal — not the entire expensive transmitter.
+- **Diaphragm Materials**: SS316L, Hastelloy-C276, Duplex 2205, Monel 400, Inconel 825, Tantalum, Gold Coating (25/40 µm), PTFE/PFA Coating
+- **Process Connections**: Flanged (1" to 4" CL 150# to 2500#), Threaded (1/4" to 2" NPT), Triclover Sanitary
+- **Fill Fluids**: BSO-18 (-10 to +315°C), BSO-22 (-50 to +225°C), BSO-48 (-20 to +420°C), BSO-01 (-110 to +100°C)
+
+### 4.7 Process Instrumentation
+- **Pressure Gauges**: Nominal sizes 63, 100, 150, 200, 250 mm; Ranges -760 mmHg to 700 kg/cm²; Class ±1.0% FS; IP67
+- **Chemical Seal Gauges**: Threaded, Flanged & Triclover connections with NABL traceability
+- **Temperature Sensors**: RTD PT-100 sensors (-200°C to 450°C, Class A/B), Thermocouples (J, K, N, R, S, B, T, E)
+- **Temperature Gauges**: Bimetallic & Gas-Filled gauges (-50°C to 600°C, EN13190 compliant)
+- **Level Monitoring**: Side & Top Mounted Level Switches (SS316 floats, IP67/flameproof enclosures)
+
+### 4.8 Pneumatics & Process Instruments
+- **Flowmeters**: Electromagnetic, Coriolis Mass, Ultrasonic, Vortex, Variable Area (Yokogawa, Emerson, ABB, Endress+Hauser makes)
+- **Control Valves**: Globe type control valves 1/2" to 16" WCB/CF8M with HART positioners
+- **Safety Relief Valves**: 25 NB × 50 NB to 250 NB × 350 NB; 0.7 to 90 kg/cm²; -40°C to +538°C (IBR / EIL approved)
+- **Steam Traps**: Thermodynamic, Ball Float, Bimetallic Thermostatic steam traps by Forbes Marshall
+
+---
+
+## 5. Engineering & Workshop Services
+
+1. **Valve Repair & Overhaul**: Servicing and refurbishing all sizes, types, makes, and pressure ratings.
+2. **NABL Traceable Calibration**: Calibration of positioners, pressure transmitters, and temperature gauges.
+3. **Hydrostatic & Seat Leak Testing**: Complete testing per API 598 and ISO 5208 standards.
+4. **Actuator & Positioner Mounting**: Precision alignment, bracket fabrication, and functional testing.
+5. **Diaphragm Seal Repair**: Custom seal replacement for all major transmitter brands.
+6. **Emergency Field Support**: Rapid on-site technician response for shutdowns, commissioning, and urgent repairs.
+
+---
+
+## 6. Major Clients Served (35+ Leading Organisations)
+
+- Aarti Industries Limited
+- Asian Paints
+- Galaxy Surfactants (Global Supplies)
+- Godrej Industries Ltd.
+- PCBL Chemical
+- Apcotex Industries
+- Alkem Laboratories
+- FMC Corporation
+- Cohizon Life Sciences
+- Coromandel International
+- Covestro
+- Indorama Synthetics
+- KLJ Group
+- Finerchem
+- Rallis India Limited (TATA Group)
+- Aditya Birla Grasim
+- Lanxess
+- Kohler
+- Cadila Pharmaceuticals
+- Champion
+- BEIL Infrastructure Ltd
+- Beotochem Lodge
+- Alembic Pharmaceuticals
+- Nitrex
+- Gulbrandsen Technologies
+- Bostik
+- Atul Ltd.
+- UPL Limited (OpenAg)
+- Vardhman
+- Modiguard
+- Sakata INX Corp
+- Saint-Gobain
+- HiKAL Limited
+- Songwon
+- Solvay
+
+---
+
+## 7. Site Map & Navigation URLs
+
+- **Home Page**: https://www.akshardeep.com/
+- **About Us**: https://www.akshardeep.com/about
+- **Products**: https://www.akshardeep.com/products
+  - Butterfly Valves: https://www.akshardeep.com/products/butterfly-valves
+  - Ball Valves: https://www.akshardeep.com/products/ball-valves
+  - Gate, Globe & Check Valves: https://www.akshardeep.com/products/gate-globe-check
+  - Specialty Valves: https://www.akshardeep.com/products/other-valves
+  - Valve Automation: https://www.akshardeep.com/products/valve-automation
+  - Diaphragm Seal Replacement: https://www.akshardeep.com/products/diaphragm-seal
+  - Instrumentation: https://www.akshardeep.com/products/instrumentation
+  - Pneumatics & Process Instruments: https://www.akshardeep.com/products/pneumatics
+- **Solutions & Capabilities**: https://www.akshardeep.com/capabilities
+- **Industries**: https://www.akshardeep.com/industries
+- **Services**: https://www.akshardeep.com/services
+- **Contact**: https://www.akshardeep.com/contact
