@@ -13,7 +13,7 @@ export function HeroConcept4() {
     forbes: {
       name: "Forbes Marshall",
       desc: "Leader in steam engineering, control valves, and process instrumentation.",
-      metrics: "50+ Product Lines Available",
+      metrics: "150+ Product Lines Available",
       highlight: "Authorized Stockist & Technical Service Provider",
       products: ["Control Valves", "Steam Traps", "Flowmeters", "Boiler Automation"],
     },
@@ -98,7 +98,7 @@ export function HeroConcept4() {
             {/* Metric Stats Cards Grid */}
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-white/10">
               <div className="bg-white/[0.04] p-3 rounded-lg border border-white/10">
-                <div className="text-xl font-extrabold text-white">11+ Yrs</div>
+                <div className="text-xl font-extrabold text-white">14+ Yrs</div>
                 <div className="text-[10px] uppercase font-bold text-white/60 mt-0.5">Experience</div>
               </div>
               <div className="bg-white/[0.04] p-3 rounded-lg border border-white/10">
@@ -106,11 +106,11 @@ export function HeroConcept4() {
                 <div className="text-[10px] uppercase font-bold text-white/60 mt-0.5">Clients</div>
               </div>
               <div className="bg-white/[0.04] p-3 rounded-lg border border-white/10">
-                <div className="text-xl font-extrabold text-accent">50+</div>
+                <div className="text-xl font-extrabold text-accent">150+</div>
                 <div className="text-[10px] uppercase font-bold text-white/60 mt-0.5">Product Lines</div>
               </div>
               <div className="bg-white/[0.04] p-3 rounded-lg border border-white/10">
-                <div className="text-xl font-extrabold text-emerald-400">3,420</div>
+                <div className="text-xl font-extrabold text-emerald-400">5,420+</div>
                 <div className="text-[10px] uppercase font-bold text-white/60 mt-0.5">Sq.Ft Facility</div>
               </div>
             </div>

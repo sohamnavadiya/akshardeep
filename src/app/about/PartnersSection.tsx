@@ -60,7 +60,7 @@ export function PartnersSection() {
                     Our Facility — Ankleshwar GIDC, Gujarat
                   </p>
                   <p className="text-white/60 text-xs mt-0.5">
-                    2,700 Sq.Ft Land | 3,420 Sq.Ft Total Infrastructure
+                    2,700 Sq.Ft Land | 5,420 Sq.Ft Total Infrastructure
                   </p>
                 </div>
               </div>
@@ -203,10 +203,16 @@ export function PartnersSection() {
                 <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-primary">
                   {partner.full}
                 </h3>
-                <div className="mt-3">
+                <div className="mt-3 flex flex-col items-center gap-3">
                   <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-accent border border-accent/30 bg-accent/5 px-3 py-1">
                     Authorised Dealer
                   </span>
+                  <a
+                    href="#certificates"
+                    className="text-[11px] font-semibold text-primary hover:text-accent transition-colors flex items-center gap-1 group-hover:underline"
+                  >
+                    View Official Certificate &rarr;
+                  </a>
                 </div>
               </motion.div>
             ))}

@@ -5,108 +5,64 @@ import { motion } from "framer-motion";
 import { CLIENTS } from "@/lib/constants";
 
 export function ClientLogos() {
-  // Duplicate for seamless infinite marquee
-  const doubled = [...CLIENTS, ...CLIENTS];
-
   return (
-    <section className="py-16 bg-white border-y border-border-default overflow-hidden">
-      <div className="max-w-[1340px] mx-auto px-4 sm:px-6 mb-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <section className="py-16 sm:py-20 bg-white border-y border-border-default">
+      <div className="max-w-[1340px] mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-6 border-b border-border-subtle">
           <div>
-            <div className="flex items-center gap-3 mb-1">
-              <div className="h-px w-6 bg-accent" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="h-px w-8 bg-accent" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent">
                 Trusted By
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-text-dark tracking-tight">
-              Our Clients
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-text-dark tracking-tight">
+              Our Esteemed Clients
             </h2>
+            <p className="text-sm text-concrete mt-1">
+              Partnering with 35+ industry leaders across chemicals, pharmaceuticals, power, and manufacturing.
+            </p>
           </div>
-          <div className="flex items-center gap-2 text-[11px] text-concrete">
-            <span className="text-2xl font-extrabold text-primary">35+</span>
-            <span className="font-medium leading-tight">
-              leading<br />organisations
+
+          <div className="flex items-center gap-3 bg-surface px-4 py-2 rounded-sm border border-border-subtle self-start sm:self-auto">
+            <span className="text-3xl font-black text-primary">35+</span>
+            <span className="text-xs font-semibold text-charcoal leading-tight">
+              Valued Client<br />Organisations
             </span>
           </div>
         </div>
-      </div>
 
-      {/* Marquee */}
-      <div className="relative">
-        {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none" />
-
-        <motion.div
-          className="flex gap-8 items-center"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 40,
-              ease: "linear",
-            },
-          }}
-          style={{ width: "max-content" }}
-        >
-          {doubled.map((client, i) => (
-            <div
-              key={`${client.name}-${i}`}
+        {/* Fixed Grid Mode with Full Color Logos */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3 sm:gap-4">
+          {CLIENTS.map((client, index) => (
+            <motion.div
+              key={client.name}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: (index % 7) * 0.04 }}
               title={client.name}
-              className="flex-shrink-0 flex items-center justify-center w-36 h-16 bg-surface border border-border-subtle hover:border-primary/30 hover:bg-white hover:shadow-sm transition-all duration-300 px-3 group cursor-default"
+              className="group relative flex flex-col items-center justify-center p-3 h-24 bg-white border border-border-subtle rounded-sm hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default"
             >
-              <div className="relative w-full h-10">
+              {/* Full Color Logo Container */}
+              <div className="relative w-full h-12 flex items-center justify-center">
                 <Image
                   src={client.logo}
                   alt={client.name}
                   fill
-                  className="object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                  sizes="144px"
+                  className="object-contain p-1 transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 15vw"
                 />
               </div>
-            </div>
-          ))}
-        </motion.div>
-      </div>
 
-      {/* Second row — reverse direction */}
-      <div className="relative mt-4">
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none" />
-
-        <motion.div
-          className="flex gap-8 items-center"
-          animate={{ x: ["-50%", "0%"] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 50,
-              ease: "linear",
-            },
-          }}
-          style={{ width: "max-content" }}
-        >
-          {doubled.map((client, i) => (
-            <div
-              key={`rev-${client.name}-${i}`}
-              title={client.name}
-              className="flex-shrink-0 flex items-center justify-center w-36 h-16 bg-surface border border-border-subtle hover:border-primary/30 hover:bg-white hover:shadow-sm transition-all duration-300 px-3 group cursor-default"
-            >
-              <div className="relative w-full h-10">
-                <Image
-                  src={client.logo}
-                  alt={client.name}
-                  fill
-                  className="object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                  sizes="144px"
-                />
-              </div>
-            </div>
+              {/* Client Name Label */}
+              <span className="mt-1 text-[11px] font-medium text-concrete group-hover:text-charcoal transition-colors line-clamp-1 text-center w-full px-1">
+                {client.name}
+              </span>
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

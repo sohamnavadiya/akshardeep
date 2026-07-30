@@ -19,10 +19,10 @@ export const COMPANY = {
     linkedin: "https://linkedin.com/company/akshardeep-engineers",
   },
   stats: {
-    yearsExperience: 11,
+    yearsExperience: 14,
     clients: 200,
-    products: 50,
-    infrastructure: 3420,
+    products: 150,
+    infrastructure: 5420,
   },
   partners: [
     { name: "Forbes Marshall", full: "Forbes Marshall (HVY) Pvt. Ltd.", logo: "/about/page3_img1_437x302.png" },
@@ -40,6 +40,65 @@ export const COMPANY = {
     "Honeywell",
   ],
 } as const;
+
+export interface CertificateItem {
+  id: string;
+  title: string;
+  badge: string;
+  brand: string;
+  issuer: string;
+  description: string;
+  pages: string[];
+  pdfUrl: string;
+  fileSize: string;
+  type: string;
+}
+
+export const CERTIFICATES: CertificateItem[] = [
+  {
+    id: "elomatic-authorization",
+    title: "El-O-Matic Authorisation Letter",
+    badge: "Official Authorisation Letter",
+    brand: "El-O-Matic & Intervalve",
+    issuer: "El-O-Matic India Pvt. Ltd. / Intervalve Poonawalla",
+    description:
+      "Official authorisation letter certifying Akshardeep Engineers as authorised channel partner for El-O-Matic pneumatic actuators and valve automation solutions.",
+    pages: [
+      "/certificates/authorization-letter-elomatic-p1.png",
+      "/certificates/authorization-letter-elomatic-p2.png",
+    ],
+    pdfUrl: "/documents/authorization-letter-elomatic.pdf",
+    fileSize: "130 KB",
+    type: "Authorisation Certificate",
+  },
+  {
+    id: "forbes-marshall-certificate",
+    title: "Forbes Marshall Authorised Channel Partner Certificate",
+    badge: "Channel Partner Certificate",
+    brand: "Forbes Marshall",
+    issuer: "Forbes Marshall (HVY) Pvt. Ltd.",
+    description:
+      "Official channel partner certificate from Forbes Marshall authorizing Akshardeep Engineers for sales and supply of industrial steam & process flow control systems.",
+    pages: ["/certificates/forbes-marshall-certificate-p1.png"],
+    pdfUrl: "/documents/forbes-marshall-certificate.pdf",
+    fileSize: "788 KB",
+    type: "Authorisation Certificate",
+  },
+  {
+    id: "akshardeep-brochure",
+    title: "Akshardeep Engineers Corporate Brochure",
+    badge: "Company Profile & Products",
+    brand: "Akshardeep Engineers",
+    issuer: "Akshardeep Engineers",
+    description:
+      "Complete corporate brochure & product catalogue detailing our range of industrial valves, instrumentation, and valve automation capabilities.",
+    pages: ["/about/page2_img5_1111x940.png"],
+    pdfUrl: "/documents/akshardeep-brochure.pdf",
+    fileSize: "6.9 MB",
+    type: "Company Brochure",
+  },
+];
+
 
 export const NAV_LINKS = [
   { label: "About", href: "/about" },
@@ -439,7 +498,7 @@ export const PRODUCTS: Product[] = [
     tagline: "Pneumatic actuators and complete ON/OFF automation packages.",
     heroImage: "/products/page10_img4_371x688.png",
     description:
-      "Akshardeep Engineers designs, assembles and supplies complete valve automation solutions using El-O-Matic pneumatic actuators. With over 10 years experience, we deliver reliable ON/OFF and modulating automation packages integrated with SCADA/DCS systems.",
+      "Akshardeep Engineers designs, assembles and supplies complete valve automation solutions using El-O-Matic pneumatic actuators. With over 14 years experience, we deliver reliable ON/OFF and modulating automation packages integrated with SCADA/DCS systems.",
     specs: "4 – 4022 Nm Torque | 3–8 Bar",
     items: ["Single Acting (SA)", "Double Acting (DA)", "P-Series Actuators", "E-Series Actuators", "Ball Valve Assemblies", "Butterfly Valve Assemblies"],
     specTable: [
@@ -709,36 +768,41 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const CLIENTS = [
-  { name: "Aarti Industries Limited", logo: "/clients/page24_img2_207x94.png" },
-  { name: "Asian Paints", logo: "/clients/page24_img3_225x187.png" },
-  { name: "Galaxy (Global Supplies)", logo: "/clients/page24_img4_154x150.png" },
-  { name: "Godrej Industries Ltd.", logo: "/clients/page24_img5_366x138.png" },
-  { name: "PCBL Chemical", logo: "/clients/page24_img6_722x547.png" },
-  { name: "Apcotex", logo: "/clients/page24_img7_166x91.png" },
-  { name: "Alkem", logo: "/clients/page24_img9_180x116.png" },
-  { name: "FMC", logo: "/clients/page24_img10_198x132.png" },
-  { name: "Cohizon Life Sciences", logo: "/clients/page24_img11_202x150.png" },
-  { name: "Coromandel", logo: "/clients/page24_img12_188x97.png" },
-  { name: "Covestro", logo: "/clients/page24_img13_215x150.png" },
-  { name: "Indorama", logo: "/clients/page24_img14_207x144.png" },
-  { name: "KLJ Group", logo: "/clients/page24_img15_140x114.png" },
-  { name: "Finerchem", logo: "/clients/page24_img16_171x69.png" },
-  { name: "Rallis India (TATA)", logo: "/clients/page24_img17_193x109.png" },
-  { name: "Aditya Birla Grasim", logo: "/clients/page24_img18_182x64.png" },
-  { name: "Lanxess", logo: "/clients/page24_img20_177x47.png" },
-  { name: "Kohler", logo: "/clients/page24_img21_188x60.png" },
-  { name: "Cadila Pharmaceuticals", logo: "/clients/page24_img22_176x55.png" },
-  { name: "Champion", logo: "/clients/page24_img23_121x119.png" },
-  { name: "BEIL Infrastructure", logo: "/clients/page24_img24_347x145.png" },
-  { name: "Alembic", logo: "/clients/page24_img26_186x53.png" },
-  { name: "Nitrex", logo: "/clients/page24_img27_183x70.png" },
-  { name: "Gulbrandsen Technologies", logo: "/clients/page24_img28_277x182.png" },
-  { name: "Bostik", logo: "/clients/page24_img29_179x81.png" },
-  { name: "Atul", logo: "/clients/page24_img30_153x89.png" },
-  { name: "UPL (OpenAg)", logo: "/clients/page24_img31_157x104.png" },
-  { name: "Sakata INX Corp", logo: "/clients/page24_img34_179x76.png" },
-  { name: "HiKAL", logo: "/clients/page24_img36_185x44.png" },
-  { name: "Songwon", logo: "/clients/page24_img37_191x80.png" },
+  { name: "Aarti Industries Limited", logo: "/clients/client_01.png" },
+  { name: "Asian Paints", logo: "/clients/client_02.png" },
+  { name: "Galaxy (Global Supplies)", logo: "/clients/client_03.png" },
+  { name: "Godrej Industries Ltd.", logo: "/clients/client_04.png" },
+  { name: "PCBL Chemical", logo: "/clients/client_05.png" },
+  { name: "Apcotex", logo: "/clients/client_06.png" },
+  { name: "Alkem", logo: "/clients/client_07.png" },
+  { name: "FMC", logo: "/clients/client_08.png" },
+  { name: "Cohizon Life Sciences", logo: "/clients/client_09.png" },
+  { name: "Coromandel", logo: "/clients/client_10.png" },
+  { name: "Covestro", logo: "/clients/client_11.png" },
+  { name: "Indorama", logo: "/clients/client_12.png" },
+  { name: "KLJ Group", logo: "/clients/client_13.png" },
+  { name: "Finerchem", logo: "/clients/client_14.png" },
+  { name: "Rallis India (TATA)", logo: "/clients/client_15.png" },
+  { name: "Aditya Birla Grasim", logo: "/clients/client_16.png" },
+  { name: "Lanxess", logo: "/clients/client_17.png" },
+  { name: "Kohler", logo: "/clients/client_18.png" },
+  { name: "Cadila Pharmaceuticals", logo: "/clients/client_19.png" },
+  { name: "Champion", logo: "/clients/client_20.png" },
+  { name: "BEIL Infrastructure Ltd", logo: "/clients/client_21.png" },
+  { name: "Beotochem Lodge", logo: "/clients/client_22.png" },
+  { name: "Alembic", logo: "/clients/client_23.png" },
+  { name: "Nitrex", logo: "/clients/client_24.png" },
+  { name: "Gulbrandsen Technologies", logo: "/clients/client_25.png" },
+  { name: "Bostik", logo: "/clients/client_26.png" },
+  { name: "Atul", logo: "/clients/client_27.png" },
+  { name: "UPL (OpenAg)", logo: "/clients/client_28.png" },
+  { name: "Vardhman", logo: "/clients/client_29.png" },
+  { name: "Modiguard", logo: "/clients/client_30.png" },
+  { name: "Sakata INX Corp", logo: "/clients/client_31.png" },
+  { name: "Saint-Gobain", logo: "/clients/client_32.png" },
+  { name: "HiKAL", logo: "/clients/client_33.png" },
+  { name: "Songwon", logo: "/clients/client_34.png" },
+  { name: "Solvay", logo: "/clients/client_35.png" },
 ];
 
 export const SERVICES = [

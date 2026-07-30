@@ -34,7 +34,16 @@ export function Navbar() {
       {/* Top utility bar */}
       <div className="hidden lg:block bg-charcoal text-text-light-muted text-xs">
         <div className="max-w-[1340px] mx-auto px-6 py-2 flex items-center justify-between">
-          <span>Authorised Channel Partner — Forbes Marshall | Intervalve | El-O-Matic</span>
+          <div className="flex items-center gap-3">
+            <span>Authorised Channel Partner — Forbes Marshall | Intervalve | El-O-Matic</span>
+            <span className="text-white/20">|</span>
+            <Link
+              href="/about#certificates"
+              className="text-accent font-semibold hover:underline flex items-center gap-1"
+            >
+              View Certificates &rarr;
+            </Link>
+          </div>
           <div className="flex items-center gap-6">
             <a
               href={`tel:${COMPANY.phone}`}

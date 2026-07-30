@@ -446,7 +446,7 @@ export function FloatingEngineering() {
               className="grid grid-cols-2 gap-3 mb-10"
             >
               {[
-                { value: "50+", label: "Product Lines" },
+                { value: "150+", label: "Product Lines" },
                 { value: "SIL 3", label: "Safety Certified" },
                 { value: "API 6D", label: "Ball Valve Standard" },
                 { value: "ISO 5211", label: "Actuator Mounting" },

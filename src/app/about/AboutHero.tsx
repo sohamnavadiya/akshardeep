@@ -8,7 +8,7 @@ const stats = [
   { value: COMPANY.stats.yearsExperience, label: "Years Experience", suffix: "+" },
   { value: COMPANY.stats.clients, label: "Clients Served", suffix: "+" },
   { value: COMPANY.stats.products, label: "Product Lines", suffix: "+" },
-  { value: COMPANY.stats.infrastructure, label: "Sq.Ft Facility" },
+  { value: COMPANY.stats.infrastructure, label: "Sq.Ft Facility", suffix: "+" },
 ];
 
 export function AboutHero() {
@@ -36,7 +36,7 @@ export function AboutHero() {
             Established in 2013, Akshardeep Engineers is a trusted supplier of
             industrial valves, valve automation and process instrumentation.
             As authorised channel partners of Forbes Marshall, Intervalve &amp; El-O-Matic,
-            we deliver quality and reliability from our 3,420 sq.ft facility in Ankleshwar, Gujarat.
+            we deliver quality and reliability from our 5,420 sq.ft facility in Ankleshwar, Gujarat.
           </p>
         </motion.div>
 

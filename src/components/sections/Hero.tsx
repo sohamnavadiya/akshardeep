@@ -89,10 +89,10 @@ export function Hero() {
           >
             <div className="border border-white/10 bg-white/[0.03] p-8">
               <div className="grid grid-cols-2 gap-6">
-                <StatBlock value="11+" label="Years Experience" />
+                <StatBlock value="14+" label="Years Experience" />
                 <StatBlock value="200+" label="Clients Served" />
-                <StatBlock value="50+" label="Product Lines" />
-                <StatBlock value="3,420" label="Sq.Ft Facility" />
+                <StatBlock value="150+" label="Product Lines" />
+                <StatBlock value="5,420+" label="Sq.Ft Facility" />
               </div>
               <div className="mt-6 pt-6 border-t border-white/10">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-text-light-muted">

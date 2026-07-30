@@ -61,7 +61,7 @@ export default function DemoHubPage() {
       highlights: [
         "Full-screen balanced vertical height",
         "Interactive Partner brand tab switcher",
-        "Integrated metric cards grid (11+ Yrs, 200+ Clients)",
+        "Integrated metric cards grid (14+ Yrs, 200+ Clients)",
       ],
     },
   ];

@@ -80,6 +80,24 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/about#certificates"
+                  className="text-sm text-accent hover:text-white transition-colors font-medium flex items-center gap-1.5"
+                >
+                  Certificates &amp; Authorisations
+                </Link>
+              </li>
+              <li>
+                <a
+                  href="/documents/akshardeep-brochure.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-text-light-muted hover:text-white transition-colors flex items-center gap-1.5"
+                >
+                  Download Brochure (PDF)
+                </a>
+              </li>
             </ul>
           </div>
 

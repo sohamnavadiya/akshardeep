@@ -7,8 +7,8 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const strengths = [
   { title: "Quick Delivery", detail: "Large stock maintained at Ankleshwar GIDC" },
-  { title: "Technical Expertise", detail: "10+ years in valve assembly & instrumentation" },
-  { title: "Complete Facility", detail: "3,420 sq.ft — assembly, testing & servicing" },
+  { title: "Technical Expertise", detail: "14+ years in valve assembly & instrumentation" },
+  { title: "Complete Facility", detail: "5,420 sq.ft — assembly, testing & servicing" },
   { title: "Quality Assurance", detail: "Tested for reliability & industry compliance" },
   { title: "Customer Focus", detail: "Tailored solutions for every application" },
   { title: "After-Sales Support", detail: "Dedicated service unit & field personnel" },

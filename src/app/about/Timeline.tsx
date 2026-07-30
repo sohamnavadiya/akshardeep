@@ -4,13 +4,12 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const milestones = [
-  { year: "2013", title: "Company Founded", description: "Akshardeep Engineers established in Ankleshwar GIDC, Gujarat as an industrial valve supplier and service provider." },
-  { year: "2014", title: "Forbes Marshall Partnership", description: "Became authorised channel partner of Forbes Marshall (HVY) Pvt. Ltd. for valve and steam engineering products." },
-  { year: "2016", title: "Intervalve Dealership", description: "Appointed as authorised dealer of Intervalve Poonamwala Pvt. Ltd. for butterfly, ball, and high-performance valves." },
-  { year: "2018", title: "Valve Automation Center", description: "Launched dedicated Valve Automation Center for ON-OFF actuator assembly, testing and supply." },
-  { year: "2020", title: "El-O-Matic Partnership", description: "Added El-O-Matic India Pvt. Ltd. to our portfolio — expanding pneumatic actuator offerings." },
-  { year: "2022", title: "Valve Service Center", description: "Established full-fledged Valve Repair Service Center with hydrostatic testing and calibration capabilities." },
-  { year: "2024", title: "Diaphragm Seal Services", description: "Partnered with Badotherm India for diaphragm seal replacement services — any brand, any type." },
+  { year: "2013", title: "Company Founded", description: "Akshardeep Engineers was established in Ankleshwar, Gujarat, as a supplier of industrial valves and instrumentation solutions." },
+  { year: "2014", title: "Forbes Marshall Channel Partner", description: "Appointed as an authorised channel partner of Forbes Marshall for process measurement and control instrumentation." },
+  { year: "2016", title: "Intervalve & El-O-Matic Dealership", description: "Became an authorised dealer of Intervalve Poonawalla Pvt. Ltd. and El-O-Matic India Pvt. Ltd. for industrial valves and pneumatic actuators." },
+  { year: "2019", title: "Valve Automation Center", description: "Established a dedicated Valve Automation Center for on-off valve assembly, testing, and supply." },
+  { year: "2022", title: "Valve Service Center", description: "Started a comprehensive Valve Service Center offering valve repair, hydrostatic testing, and calibration services." },
+  { year: "2025", title: "Diaphragm Seal Services", description: "Partnered with Badotherm India to provide diaphragm seal replacement and servicing solutions." },
 ];
 
 export function Timeline() {
@@ -20,7 +19,7 @@ export function Timeline() {
         <SectionHeading
           label="Our Journey"
           title="Key Milestones"
-          subtitle="Building a trusted industrial solutions partnership since 2013"
+          subtitle="Building Trusted Industrial Solutions Since 2013"
         />
 
         <div className="relative">

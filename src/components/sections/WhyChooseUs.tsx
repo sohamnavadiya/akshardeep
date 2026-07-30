@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const reasons = [
-  { stat: "10+", unit: "Years", detail: "Engineering Experience" },
+  { stat: "14+", unit: "Years", detail: "Engineering Experience" },
   { stat: "3", unit: "OEM", detail: "Authorised Partnerships" },
   { stat: "24h", unit: "Max", detail: "Delivery Turnaround" },
   { stat: "200+", unit: "Active", detail: "Industry Clients" },
-  { stat: "3,420", unit: "Sq.Ft", detail: "Testing Facility" },
+  { stat: "5,420+", unit: "Sq.Ft", detail: "Testing Facility" },
   { stat: "100%", unit: "Tested", detail: "Quality Assurance" },
 ];
 

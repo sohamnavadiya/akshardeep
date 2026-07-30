@@ -86,11 +86,11 @@ export function HeroConcept1() {
             {/* Quick Metrics Strip */}
             <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-3 gap-4">
               <div>
-                <div className="text-2xl font-black text-white">11+ Yrs</div>
+                <div className="text-2xl font-black text-white">14+ Yrs</div>
                 <div className="text-xs text-white/60 uppercase tracking-wider mt-0.5">Field Expertise</div>
               </div>
               <div>
-                <div className="text-2xl font-black text-accent">50+</div>
+                <div className="text-2xl font-black text-accent">150+</div>
                 <div className="text-xs text-white/60 uppercase tracking-wider mt-0.5">Product Lines</div>
               </div>
               <div>

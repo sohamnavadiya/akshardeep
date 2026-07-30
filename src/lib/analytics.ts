@@ -141,3 +141,21 @@ export function trackNavClick(linkName: string, destination: string) {
   });
 }
 
+// 10. Certificate View & Download Tracking
+export function trackCertificateView(certTitle: string) {
+  trackEvent({
+    action: "view_certificate",
+    category: "Certificates",
+    label: certTitle,
+  });
+}
+
+export function trackCertificateDownload(certTitle: string) {
+  trackEvent({
+    action: "download_certificate",
+    category: "Certificates",
+    label: certTitle,
+  });
+}
+
+
