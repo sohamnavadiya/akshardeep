@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AboutHero } from "./AboutHero";
 import { Timeline } from "./Timeline";
 import { PartnersSection } from "./PartnersSection";
+import { AchievementsSection } from "./AchievementsSection";
 import { CertificatesSection } from "@/components/sections/CertificatesSection";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 
@@ -26,6 +27,7 @@ export default function AboutPage() {
       <AboutHero />
       <Timeline />
       <PartnersSection />
+      <AchievementsSection />
       <CertificatesSection />
       <ContactCTA />
     </>

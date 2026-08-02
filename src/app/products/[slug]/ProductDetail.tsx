@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { COMPANY, type Product } from "@/lib/constants";
 import {
   trackQuoteRequest,
@@ -29,7 +30,9 @@ const fadeUp = {
 export function ProductDetail({ product, relatedProducts }: Props) {
   const [activeVariant, setActiveVariant] = useState(0);
   const hasSubProducts = product.subProducts && product.subProducts.length > 0;
-  const activeSubProduct = hasSubProducts ? product.subProducts![activeVariant] : null;
+  const activeSubProduct = hasSubProducts
+    ? (product.subProducts![activeVariant] || product.subProducts![0])
+    : null;
 
   const getWhatsAppQuoteUrl = () => {
     let text = `Hello Akshardeep Engineers,\n\nI would like to request a quote for:\n\n📌 *Product:* ${product.name}\n📂 *Category:* ${product.category}`;
@@ -254,7 +257,130 @@ export function ProductDetail({ product, relatedProducts }: Props) {
               </h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* ── Mobile Accordion View (< lg) ── */}
+            <div className="flex flex-col gap-3 lg:hidden">
+              {product.subProducts!.map((sub, idx) => {
+                const isExpanded = activeVariant === idx;
+                return (
+                  <div
+                    key={sub.name}
+                    className={`border transition-all duration-200 overflow-hidden ${
+                      isExpanded
+                        ? "border-accent bg-white shadow-md"
+                        : "border-border-default bg-white"
+                    }`}
+                  >
+                    <button
+                      onClick={() => {
+                        setActiveVariant(isExpanded ? -1 : idx);
+                        if (!isExpanded) {
+                          trackProductVariantSelect(product.name, sub.name, sub.model);
+                        }
+                      }}
+                      className={`w-full text-left px-4 py-4 transition-colors flex items-center justify-between gap-3 ${
+                        isExpanded ? "bg-accent/5" : "hover:bg-surface"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`w-1.5 h-8 rounded-full flex-shrink-0 transition-colors ${
+                            isExpanded ? "bg-accent" : "bg-border-default"
+                          }`}
+                        />
+                        <div>
+                          <p className="text-sm font-bold text-text-dark leading-tight">{sub.name}</p>
+                          {sub.model && (
+                            <p className="text-[10px] font-mono text-concrete mt-0.5">Model: {sub.model}</p>
+                          )}
+                        </div>
+                      </div>
+                      <ChevronDown
+                        className={`w-5 h-5 text-concrete transition-transform duration-300 flex-shrink-0 ${
+                          isExpanded ? "rotate-180 text-accent" : ""
+                        }`}
+                      />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isExpanded && (
+                        <motion.div
+                          key="accordion-content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="p-4 bg-surface border-t border-border-default flex flex-col gap-4">
+                            {/* Image */}
+                            <div className="relative bg-white border border-border-default rounded-sm overflow-hidden flex items-center justify-center h-60 p-4">
+                              <div
+                                className="absolute inset-0 opacity-50"
+                                style={{
+                                  backgroundImage:
+                                    "linear-gradient(rgba(43,57,144,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(43,57,144,0.03) 1px, transparent 1px)",
+                                  backgroundSize: "24px 24px",
+                                }}
+                              />
+                              <Image
+                                src={sub.image}
+                                alt={sub.name}
+                                fill
+                                className="object-contain p-4"
+                                sizes="100vw"
+                              />
+                            </div>
+
+                            {/* Spec mini-table */}
+                            <div className="flex flex-col">
+                              <h3 className="text-sm font-extrabold text-text-dark mb-2 leading-tight">
+                                {sub.name}
+                              </h3>
+                              <div className="border border-border-default overflow-hidden mb-3">
+                                {sub.specs.map((spec, si) => (
+                                  <div
+                                    key={spec.key}
+                                    className={`flex ${si % 2 === 0 ? "bg-surface" : "bg-white"}`}
+                                  >
+                                    <div className="w-[40%] px-3 py-2 border-r border-border-default">
+                                      <span className="text-[10px] font-bold uppercase tracking-wide text-primary">
+                                        {spec.key}
+                                      </span>
+                                    </div>
+                                    <div className="flex-1 px-3 py-2">
+                                      <span className="text-xs text-text-body font-mono leading-relaxed">
+                                        {spec.value}
+                                      </span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                              <a
+                                href={whatsappQuoteUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() =>
+                                  trackQuoteRequest(
+                                    "Product Variant Section",
+                                    `${product.name} - ${sub.name}`
+                                  )
+                                }
+                                className="inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white text-xs font-bold uppercase tracking-wider py-2.5 px-4 transition-colors text-center"
+                              >
+                                Request Quote for {sub.name}
+                              </a>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* ── Desktop Layout (≥ lg) ── */}
+            <div className="hidden lg:grid lg:grid-cols-3 gap-6">
               {/* Left: Variant selector */}
               <div className="lg:col-span-1 flex flex-col gap-2">
                 {product.subProducts!.map((sub, idx) => (

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { COMPANY } from "@/lib/constants";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -12,6 +11,27 @@ const fadeUp = {
     transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" as const },
   }),
 };
+
+const partnerCards = [
+  {
+    name: "Forbes Marshall",
+    full: "Forbes Marshall (HVY) Pvt. Ltd.",
+    certLabel: "Forbes Marshall Certificate",
+    certImage: "/certificates/forbes-marshall-certificate-p1.png",
+  },
+  {
+    name: "Intervalve",
+    full: "Intervalve Poonamwala Pvt. Ltd.",
+    certLabel: "Intervalve Poonawalla Certificate",
+    certImage: "/certificates/authorization-letter-elomatic-p1.png",
+  },
+  {
+    name: "El-O-Matic",
+    full: "El-O-Matic India Pvt. Ltd.",
+    certLabel: "El-O-Matic  Certificate",
+    certImage: "/certificates/authorization-letter-elomatic-p2.png",
+  },
+];
 
 const strengths = [
   "Quick delivery",
@@ -179,40 +199,40 @@ export function PartnersSection() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {COMPANY.partners.map((partner, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {partnerCards.map((card, i) => (
               <motion.div
-                key={partner.name}
+                key={card.name}
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={i}
-                className="bg-white border border-border-default hover:border-primary/40 hover:shadow-md transition-all duration-300 p-8 flex flex-col items-center text-center group"
+                className="flex flex-col items-center group"
               >
-                <div className="relative w-full h-24 mb-6">
-                  <Image
-                    src={partner.logo}
-                    alt={partner.full}
-                    fill
-                    className="object-contain group-hover:scale-105 transition-transform duration-300"
-                    sizes="300px"
-                  />
+                {/* Certificate label above card */}
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-text-dark mb-3">
+                  {card.certLabel}
+                </p>
+
+                {/* Certificate image card */}
+                <div className="w-full bg-white border border-border-default shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden mb-5">
+                  <div className="relative w-full aspect-[4/3] bg-neutral-100">
+                    <Image
+                      src={card.certImage}
+                      alt={card.certLabel}
+                      fill
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                  </div>
                 </div>
-                <div className="h-px w-8 bg-border-default group-hover:bg-accent transition-colors duration-300 mb-4" />
-                <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-primary">
-                  {partner.full}
-                </h3>
-                <div className="mt-3 flex flex-col items-center gap-3">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-accent border border-accent/30 bg-accent/5 px-3 py-1">
-                    Authorised Dealer
-                  </span>
-                  <a
-                    href="#certificates"
-                    className="text-[11px] font-semibold text-primary hover:text-accent transition-colors flex items-center gap-1 group-hover:underline"
-                  >
-                    View Official Certificate &rarr;
-                  </a>
+
+                {/* Card footer */}
+                <div className="flex flex-col items-center gap-2 text-center">
+                  <h3 className="text-[11px] font-extrabold uppercase tracking-[0.12em] text-text-dark">
+                    {card.full}
+                  </h3>
                 </div>
               </motion.div>
             ))}
@@ -269,19 +289,19 @@ export function PartnersSection() {
               custom={1}
               className="relative flex justify-center"
             >
-              <div className="relative w-full max-w-sm">
+              <div className="relative w-full max-w-xs sm:max-w-sm">
                 <div className="absolute -top-4 -left-4 w-full h-full border-2 border-primary/20" />
-                <div className="relative aspect-[4/3] overflow-hidden bg-surface border border-border-default">
+                <div className="relative aspect-[3/4] overflow-hidden bg-white border border-border-default shadow-md">
                   <Image
-                    src="/about/page3_img1_437x302.png"
-                    alt="Best Performance New Dealer Award — Poonawalla Group 2016"
+                    src="/about/trophy_award_2016.png"
+                    alt="Best Performance New Dealer Award Trophy — Poonawalla Group 2016"
                     fill
-                    className="object-contain p-4"
+                    className="object-contain p-4 hover:scale-105 transition-transform duration-500"
                     sizes="400px"
                   />
                 </div>
-                <div className="absolute -bottom-2 -right-2 bg-accent text-white text-[9px] font-bold uppercase tracking-[0.15em] px-3 py-1.5">
-                  Award 2016
+                <div className="absolute -bottom-2 -right-2 bg-accent text-white text-[9px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 shadow-sm">
+                  Award Trophy 2016
                 </div>
               </div>
             </motion.div>

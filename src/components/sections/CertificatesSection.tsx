@@ -57,116 +57,130 @@ export function CertificatesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-14"
+          className="text-center max-w-3xl mx-auto mb-12"
         >
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 bg-accent" />
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-accent" />
-              Verified Credentials
+              Corporate Documentation
             </span>
             <div className="h-px w-8 bg-accent" />
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-text-dark tracking-tight">
-            Authorisations &amp; Certificates
+            Company Profile &amp; Product Catalogue
           </h2>
           <p className="mt-3 text-base text-text-body leading-relaxed">
-            Verify our official dealership credentials, channel partner authorisations from Forbes Marshall &amp; El-O-Matic, and download our company profile.
+            Download our official corporate brochure detailing our full range of industrial valves, process instrumentation, and principal partner authorisations.
           </p>
         </motion.div>
 
-        {/* Certificate Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {CERTIFICATES.map((cert, index) => (
-            <motion.div
-              key={cert.id}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              custom={index}
-              className="bg-white border border-border-default hover:border-primary/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group rounded-sm overflow-hidden"
+        {/* Single Brochure Feature Showcase Box */}
+        {CERTIFICATES.map((cert) => (
+          <motion.div
+            key={cert.id}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto bg-white border border-border-default shadow-xl rounded-sm overflow-hidden flex flex-col md:flex-row group"
+          >
+            {/* Left Column: Document Image Thumbnail Box */}
+            <div
+              onClick={() => openModal(cert)}
+              className="md:w-5/12 relative aspect-[3/4] min-h-[320px] bg-neutral-900 overflow-hidden cursor-pointer group flex items-center justify-center p-4 border-b md:border-b-0 md:border-r border-border-default"
             >
-              {/* Document Image Thumbnail Box */}
-              <div
-                onClick={() => openModal(cert)}
-                className="relative aspect-[3/4] bg-neutral-100 overflow-hidden cursor-pointer group-hover:opacity-95 transition-opacity"
-              >
-                <Image
-                  src={cert.pages[0]}
-                  alt={cert.title}
-                  fill
-                  className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
+              <Image
+                src={cert.pages[0]}
+                alt={cert.title}
+                fill
+                className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, 400px"
+                priority
+              />
 
-                {/* Badge Overlay */}
-                <div className="absolute top-3 left-3 bg-primary/95 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm flex items-center gap-1">
-                  <Award className="w-3 h-3 text-accent" />
-                  {cert.badge}
+              {/* Badge Overlay */}
+              <div className="absolute top-4 left-4 bg-primary/95 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 shadow-md flex items-center gap-1">
+                <Award className="w-3.5 h-3.5 text-accent" />
+                {cert.badge}
+              </div>
+
+              {/* Quick View Overlay */}
+              <div className="absolute inset-0 bg-charcoal/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center shadow-lg mb-2 transform group-hover:scale-110 transition-transform">
+                  <Eye className="w-6 h-6" />
                 </div>
+                <span className="text-white text-xs font-bold uppercase tracking-wider">
+                  Click to Preview Document
+                </span>
+              </div>
+            </div>
 
-                {/* Hover Quick View Overlay */}
-                <div className="absolute inset-0 bg-charcoal/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center">
-                  <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center shadow-lg mb-2 transform group-hover:scale-110 transition-transform">
-                    <Eye className="w-6 h-6" />
-                  </div>
-                  <span className="text-white text-xs font-bold uppercase tracking-wider">
-                    Click to Preview
+            {/* Right Column: Detailed Document Presentation */}
+            <div className="md:w-7/12 p-6 sm:p-8 flex flex-col justify-between bg-white">
+              <div>
+                <div className="flex items-center justify-between text-xs text-text-muted mb-3 gap-2">
+                  <span className="font-extrabold text-accent uppercase tracking-widest text-[10px]">
+                    {cert.brand}
                   </span>
-                  {cert.pages.length > 1 && (
-                    <span className="text-white/70 text-[11px] mt-1">
-                      ({cert.pages.length} Pages)
-                    </span>
-                  )}
+                  <span className="bg-surface border border-border-default text-text-dark font-semibold px-3 py-1 text-[10px] rounded-sm">
+                    PDF Document ({cert.fileSize})
+                  </span>
                 </div>
-              </div>
 
-              {/* Card Meta Content */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between text-xs text-text-muted mb-2">
-                    <span className="font-semibold text-accent uppercase tracking-wider text-[10px]">
-                      {cert.brand}
-                    </span>
-                    <span className="bg-surface border border-border-default text-text-muted px-2 py-0.5 text-[10px] rounded">
-                      {cert.fileSize}
-                    </span>
-                  </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-text-dark group-hover:text-primary transition-colors leading-tight mb-3">
+                  {cert.title}
+                </h3>
 
-                  <h3 className="text-base font-bold text-text-dark group-hover:text-primary transition-colors leading-snug mb-2">
-                    {cert.title}
-                  </h3>
+                <p className="text-xs sm:text-sm text-text-body leading-relaxed mb-5">
+                  {cert.description}
+                </p>
 
-                  <p className="text-xs text-text-body leading-relaxed mb-4 line-clamp-3">
-                    {cert.description}
+                {/* Content Highlights */}
+                <div className="mb-6 bg-surface p-4 border border-border-default/60 rounded-sm">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-text-dark mb-2.5">
+                    What&apos;s Included inside:
                   </p>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="pt-4 border-t border-border-default flex items-center gap-3">
-                  <button
-                    onClick={() => openModal(cert)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-primary bg-primary/5 hover:bg-primary hover:text-white border border-primary/20 transition-all rounded-sm"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                    Preview
-                  </button>
-                  <a
-                    href={cert.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => handleDownload(cert)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-bold text-white bg-accent hover:bg-accent/90 transition-all rounded-sm shadow-sm"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    PDF ({cert.fileSize})
-                  </a>
+                  <ul className="space-y-2 text-xs text-text-body">
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                      <span>Authorized Channel Partner credentials for Forbes Marshall, Intervalve &amp; El-O-Matic.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                      <span>Full technical specifications for Butterfly, Ball, Gate, Globe &amp; Check Valves.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                      <span>Infrastructure overview of our 5,420 Sq.Ft facility in Ankleshwar GIDC.</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+
+              {/* Action CTAs */}
+              <div className="pt-4 border-t border-border-default flex flex-col sm:flex-row items-center gap-3">
+                <a
+                  href={cert.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => handleDownload(cert)}
+                  className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 text-xs font-bold text-white bg-accent hover:bg-accent/90 transition-all rounded-sm shadow-sm cursor-pointer"
+                >
+                  <Download className="w-4 h-4" />
+                  Download PDF Brochure ({cert.fileSize})
+                </a>
+                <button
+                  onClick={() => openModal(cert)}
+                  className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 text-xs font-bold text-primary bg-primary/5 hover:bg-primary hover:text-white border border-primary/20 transition-all rounded-sm cursor-pointer"
+                >
+                  <Eye className="w-4 h-4" />
+                  Preview Document
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       {/* Interactive Modal Viewer */}
