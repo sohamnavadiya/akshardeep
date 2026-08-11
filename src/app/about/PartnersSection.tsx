@@ -210,19 +210,14 @@ export function PartnersSection() {
                 custom={i}
                 className="flex flex-col items-center group"
               >
-                {/* Certificate label above card */}
-                <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-text-dark mb-3">
-                  {card.certLabel}
-                </p>
-
                 {/* Certificate image card */}
-                <div className="w-full bg-white border border-border-default shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden mb-5">
-                  <div className="relative w-full aspect-[4/3] bg-neutral-100">
+                <div className="w-full bg-white border border-border-default shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden mb-4">
+                  <div className="relative w-full aspect-[3/4] bg-slate-50 p-2">
                     <Image
                       src={card.certImage}
                       alt={card.certLabel}
                       fill
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="object-contain p-2 group-hover:scale-[1.02] transition-transform duration-500"
                       sizes="(max-width: 640px) 100vw, 33vw"
                     />
                   </div>

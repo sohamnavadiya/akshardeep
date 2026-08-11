@@ -9,6 +9,9 @@ import { trackProductClick, trackCategoryFilter } from "@/lib/analytics";
 import { ProductCardSlider } from "@/components/shared/ProductCardSlider";
 import { Layers } from "lucide-react";
 
+import { ProductCatalogDirectory } from "@/components/shared/ProductCatalogDirectory";
+import { LayoutGrid, ListFilter } from "lucide-react";
+
 const categories = ["All", ...Array.from(new Set(PRODUCTS.map((p) => p.category)))];
 
 const categoryIcons: Record<string, string> = {
@@ -20,6 +23,7 @@ const categoryIcons: Record<string, string> = {
 export function ProductsListing() {
   const [active, setActive] = useState("All");
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"directory" | "cards">("directory");
 
   const filtered =
     active === "All"
@@ -28,32 +32,78 @@ export function ProductsListing() {
 
   return (
     <div>
-      {/* Filter Tabs */}
-      <div className="flex flex-wrap gap-2 mb-10">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => {
-              setActive(cat);
-              trackCategoryFilter(cat);
-            }}
-            className={cn(
-              "px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 rounded-none border cursor-pointer",
-              active === cat
-                ? "bg-primary text-white border-primary shadow-md"
-                : "bg-white text-concrete border-border-default hover:border-primary hover:text-primary"
-            )}
-          >
-            {cat !== "All" && (
-              <span className="mr-1.5">{categoryIcons[cat] ?? ""}</span>
-            )}
-            {cat}
-          </button>
-        ))}
+      {/* Top Toolbar: View Mode & Category Filters */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 bg-white p-3 border border-border-default shadow-sm">
+        {/* Category Filter Tabs */}
+        <div className="flex flex-wrap gap-1.5">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => {
+                setActive(cat);
+                trackCategoryFilter(cat);
+              }}
+              className={cn(
+                "px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 rounded-none border cursor-pointer",
+                active === cat
+                  ? "bg-primary text-white border-primary shadow-sm"
+                  : "bg-surface text-steel border-border-subtle hover:border-primary hover:text-primary"
+              )}
+            >
+              {cat !== "All" && (
+                <span className="mr-1.5">{categoryIcons[cat] ?? ""}</span>
+              )}
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* View Mode Toggle */}
+        <div className="flex items-center gap-2 self-end sm:self-auto border-l border-slate-200 pl-4">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 hidden md:inline">
+            Layout View:
+          </span>
+          <div className="inline-flex border border-slate-300 p-0.5 bg-slate-100">
+            <button
+              onClick={() => setViewMode("directory")}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold transition-colors cursor-pointer",
+                viewMode === "directory"
+                  ? "bg-accent text-white shadow-sm"
+                  : "text-slate-600 hover:text-slate-900 bg-white"
+              )}
+              title="Multi-column Catalog Directory Index (As seen in reference)"
+            >
+              <ListFilter className="w-3.5 h-3.5" />
+              <span>Catalog Index</span>
+            </button>
+            <button
+              onClick={() => setViewMode("cards")}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold transition-colors cursor-pointer",
+                viewMode === "cards"
+                  ? "bg-primary text-white shadow-sm"
+                  : "text-slate-600 hover:text-slate-900 bg-white"
+              )}
+              title="Visual Cards Grid with Image Sliders"
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>Visual Cards</span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Product Grid */}
-      <AnimatePresence mode="wait">
+      {/* Directory View Mode */}
+      {viewMode === "directory" ? (
+        <ProductCatalogDirectory
+          initialCatalog="akshardeep"
+          showCatalogSwitch={true}
+          showHeader={true}
+        />
+      ) : (
+        /* Visual Cards Grid Mode */
+        <AnimatePresence mode="wait">
         <motion.div
           key={active}
           initial={{ opacity: 0, y: 8 }}
@@ -172,6 +222,7 @@ export function ProductsListing() {
           })}
         </motion.div>
       </AnimatePresence>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingContactButtons } from "@/components/shared/FloatingContactButtons";
+import { CookieConsent } from "@/components/shared/CookieConsent";
 import { OrganizationJsonLd, LocalBusinessJsonLd } from "@/components/seo/JsonLd";
 
 const inter = Inter({
@@ -115,6 +116,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <FloatingContactButtons />
+        <CookieConsent />
       </body>
     </html>
   );

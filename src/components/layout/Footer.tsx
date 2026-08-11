@@ -98,6 +98,22 @@ export function Footer() {
                   Download Brochure (PDF)
                 </a>
               </li>
+              <li>
+                <Link
+                  href="/privacy-policy"
+                  className="text-sm text-text-light-muted hover:text-white transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms-and-conditions"
+                  className="text-sm text-text-light-muted hover:text-white transition-colors"
+                >
+                  Terms &amp; Conditions
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -156,6 +172,15 @@ export function Footer() {
           <p className="text-xs text-slate">
             © {new Date().getFullYear()} Akshardeep Engineers. All Rights Reserved.
           </p>
+          <div className="flex items-center gap-3 text-xs text-slate">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
+              Terms &amp; Conditions
+            </Link>
+          </div>
           <p className="text-xs text-slate">
             Ankleshwar GIDC, Gujarat, India
           </p>

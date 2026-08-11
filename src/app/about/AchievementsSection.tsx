@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Maximize2, X, Award, Star } from "lucide-react";
+import { Maximize2, X, Award, Star } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -53,11 +53,7 @@ const achievements = [
   },
 ];
 
-const stats = [
-  { value: "3+", label: "Industry Recognitions" },
-  { value: "10+", label: "Years of Excellence" },
-  { value: "3", label: "Top Brand Principals" },
-];
+
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -104,7 +100,7 @@ export function AchievementsSection() {
     if (isPaused) return;
     const timer = setInterval(() => {
       goToNext();
-    }, 5000);
+    }, 4500);
     return () => clearInterval(timer);
   }, [isPaused, goToNext]);
 
@@ -145,27 +141,6 @@ export function AchievementsSection() {
           <p className="mt-3 text-base text-text-body">
             Honoured by our principals for consistent excellence, performance, and outstanding partnership in industrial automation.
           </p>
-        </motion.div>
-
-        {/* Stats Row */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          custom={1}
-          className="flex justify-center gap-8 sm:gap-16 mb-12 py-5 bg-white/60 backdrop-blur-sm border border-border-default/60 shadow-xs max-w-3xl mx-auto"
-        >
-          {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="text-2xl sm:text-3xl font-extrabold text-primary leading-none">
-                {s.value}
-              </p>
-              <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.15em] text-text-body mt-1.5">
-                {s.label}
-              </p>
-            </div>
-          ))}
         </motion.div>
 
         {/* Single Master Box Frame */}
@@ -269,47 +244,15 @@ export function AchievementsSection() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Navigation Bar inside the bottom of the Master Single Box */}
-            <div className="bg-surface border-t border-border-default p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-              {/* Tab Pills for quick selection */}
-              <div className="flex items-center gap-1.5 flex-wrap justify-center sm:justify-start">
-                {achievements.map((item, idx) => (
-                  <button
-                    key={item.id}
-                    onClick={() => selectIndex(idx)}
-                    className={`text-[10px] font-extrabold uppercase tracking-[0.12em] px-3 py-1.5 transition-all duration-300 cursor-pointer border ${
-                      currentIndex === idx
-                        ? "bg-primary text-white border-primary shadow-xs"
-                        : "bg-white text-text-body border-border-default hover:border-concrete hover:text-text-dark"
-                    }`}
-                  >
-                    0{idx + 1}. {item.tag}
-                  </button>
-                ))}
-              </div>
-
-              {/* Prev / Next Buttons & Counter */}
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="text-xs font-extrabold text-concrete tracking-widest uppercase">
-                  0{currentIndex + 1} / 0{achievements.length}
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={goToPrev}
-                    aria-label="Previous achievement"
-                    className="w-9 h-9 rounded-full border border-border-default bg-white shadow-xs flex items-center justify-center text-text-dark hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={goToNext}
-                    aria-label="Next achievement"
-                    className="w-9 h-9 rounded-full border border-border-default bg-white shadow-xs flex items-center justify-center text-text-dark hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
+            {/* Auto-scroll Progress Indicator Bar (No bottom buttons) */}
+            <div className="w-full h-1 bg-surface border-t border-border-default overflow-hidden">
+              <motion.div
+                key={currentIndex}
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 4.5, ease: "linear" }}
+                className="h-full bg-accent"
+              />
             </div>
           </div>
         </motion.div>
