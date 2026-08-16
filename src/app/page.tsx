@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
-import { TrustBar } from "@/components/sections/TrustBar";
 import { AboutSnapshot } from "@/components/sections/AboutSnapshot";
 import { ProductHighlights } from "@/components/sections/ProductHighlights";
 import { IndustriesGrid } from "@/components/sections/IndustriesGrid";
-import { ValveAutomation } from "@/components/sections/ValveAutomation";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { EngineeringProcess } from "@/components/sections/EngineeringProcess";
 import { ServicesDivision } from "@/components/sections/ServicesDivision";
@@ -30,11 +28,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustBar />
       <AboutSnapshot />
       <ProductHighlights />
       <IndustriesGrid />
-      <ValveAutomation />
       <WhyChooseUs />
       <EngineeringProcess />
       <ServicesDivision />

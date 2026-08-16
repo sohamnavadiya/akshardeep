@@ -23,7 +23,7 @@ const categoryIcons: Record<string, string> = {
 export function ProductsListing() {
   const [active, setActive] = useState("All");
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<"directory" | "cards">("directory");
+  const [viewMode, setViewMode] = useState<"directory" | "cards">("cards");
 
   const filtered =
     active === "All"

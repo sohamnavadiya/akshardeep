@@ -231,32 +231,6 @@ export function ProductCatalogDirectory({
 
   return (
     <div className="w-full font-sans text-slate-800 bg-white p-8 sm:p-10 lg:p-12 border border-slate-200 shadow-lg rounded-xl relative overflow-hidden">
-      {/* Top Mechanical Engineering Feature Banner */}
-      <div className="mb-8 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-6 rounded-lg border-l-4 border-accent shadow-md">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-accent uppercase mb-1">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span>Heavy-Duty Industrial Equipment Directory</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              <span>Mechanical & Flow Control Catalog</span>
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-2 text-xs font-mono">
-            <span className="bg-slate-800 text-slate-200 px-3 py-1.5 rounded border border-slate-700 flex items-center gap-1.5">
-              <span className="text-accent font-bold">⚙</span> ISO 5208 / BS EN 17292
-            </span>
-            <span className="bg-slate-800 text-slate-200 px-3 py-1.5 rounded border border-slate-700 flex items-center gap-1.5">
-              <span className="text-accent font-bold">⚙</span> 15 NB to 700 NB
-            </span>
-            <span className="bg-slate-800 text-slate-200 px-3 py-1.5 rounded border border-slate-700 flex items-center gap-1.5">
-              <span className="text-accent font-bold">⚙</span> ASME Class #150 - #2500
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* Header Row & Controls */}
       {showHeader && (
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-200">

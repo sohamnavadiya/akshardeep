@@ -142,27 +142,12 @@ export function Navbar() {
                         className={cn(
                           "absolute top-full bg-white border border-border-default shadow-2xl z-50",
                           link.label === "Products"
-                            ? "left-1/2 -translate-x-1/2 w-[1180px] p-8 rounded-b-2xl shadow-2xl border-t-2 border-accent"
+                            ? "left-1/2 -translate-x-1/2 w-[1180px] p-8 rounded-2xl shadow-2xl border-t-2 border-accent"
                             : "left-0 w-60 py-2 p-5"
                         )}
                       >
                         {link.label === "Products" ? (
                           <div className="flex flex-col">
-                            {/* Top Mechanical Technical Bar */}
-                            <div className="-mx-8 -mt-8 mb-6 bg-slate-900 text-white px-8 py-3.5 rounded-t-xl flex flex-wrap items-center justify-between gap-4 border-b-2 border-accent/40 shadow-inner">
-                              <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-slate-100">
-                                <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse shadow-[0_0_8px_rgba(200,62,43,0.8)]" />
-                                <span>Industrial Heavy-Duty Valve & Automation Directory</span>
-                              </div>
-                              <div className="hidden sm:flex items-center gap-4 text-[11px] font-mono text-slate-300">
-                                <span className="flex items-center gap-1.5"><span className="text-accent font-bold">⚙</span> ASME Class #150 to #2500</span>
-                                <span className="text-slate-600">•</span>
-                                <span className="flex items-center gap-1.5"><span className="text-accent font-bold">⚙</span> API 600 / BS EN 17292</span>
-                                <span className="text-slate-600">•</span>
-                                <span className="flex items-center gap-1.5"><span className="text-accent font-bold">⚙</span> 15 NB to 700 NB</span>
-                              </div>
-                            </div>
-
                             {/* 4-Column Grid Layout */}
                             <div className="grid grid-cols-4 gap-x-8 gap-y-8">
                               {/* 1. Butterfly Valves */}
@@ -220,6 +205,8 @@ export function Navbar() {
                                     { name: "3-Pcs Forged Steel", href: "/products/ball-valves" },
                                     { name: "Single Piece Jacketed", href: "/products/ball-valves" },
                                     { name: "3-Way T & L Port", href: "/products/ball-valves" },
+                                    { name: "Flush Bottom / Tank Bottom", href: "/products/ball-valves" },
+                                    { name: "Lined Ball Valves", href: "/products/ball-valves" },
                                   ].map((item) => (
                                     <li key={item.name}>
                                       <Link

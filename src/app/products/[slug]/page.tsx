@@ -44,8 +44,10 @@ export default async function ProductDetailPage({ params }: Props) {
   if (!product) notFound();
 
   const relatedProducts = PRODUCTS.filter(
-    (p) => p.slug !== slug && (p.category === product.category || Math.random() > 0.5)
-  ).slice(0, 3);
+    (p) => p.slug !== slug && p.category === product.category
+  )
+    .concat(PRODUCTS.filter((p) => p.slug !== slug && p.category !== product.category))
+    .slice(0, 3);
 
   const breadcrumbs = [
     { name: "Home", url: "/" },

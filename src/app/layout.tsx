@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Akshardeep Engineers — Industrial Valves & Process Automation",
     description:
       "Authorised channel partner of Forbes Marshall, Intervalve & El-O-Matic in Ankleshwar GIDC, Gujarat.",

@@ -5,12 +5,14 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Images } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SubProduct } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 interface ProductCardSliderProps {
   images: string[];
   productName: string;
   category?: string;
   subProducts?: SubProduct[];
+  className?: string;
 }
 
 export function ProductCardSlider({
@@ -18,6 +20,7 @@ export function ProductCardSlider({
   productName,
   category,
   subProducts,
+  className,
 }: ProductCardSliderProps) {
   // Ensure we have a valid non-empty list of images
   const imageList = images && images.length > 0 ? images : ["/logo.png"];
@@ -112,7 +115,10 @@ export function ProductCardSlider({
 
   return (
     <div
-      className="group/slider relative w-full aspect-[4/3] rounded-none overflow-hidden bg-surface border-b border-border-default flex items-center justify-center p-3 select-none"
+      className={cn(
+        "group/slider relative w-full aspect-[4/3] rounded-none overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50 border-b border-border-default flex items-center justify-center p-4 select-none",
+        className
+      )}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

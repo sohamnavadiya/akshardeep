@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
 import { trackQuoteRequest, trackNavClick } from "@/lib/analytics";
 
@@ -104,12 +104,24 @@ const HERO_SLIDES: SlideData[] = [
   },
 ];
 
+const SLIDE_DURATION_MS = 5000;
+
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+  }, []);
+
+  const goToSlide = useCallback((idx: number) => {
+    setCurrentSlide(idx);
   }, []);
 
   // Auto slide timer
@@ -117,18 +129,57 @@ export function Hero() {
     if (isPaused) return;
     const timer = setInterval(() => {
       nextSlide();
-    }, 5500);
+    }, SLIDE_DURATION_MS);
     return () => clearInterval(timer);
-  }, [isPaused, nextSlide]);
+  }, [isPaused, nextSlide, currentSlide]);
+
+  // Touch Swipe Handlers for Mobile
+  const minSwipeDistance = 40;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) {
+      nextSlide();
+    } else if (distance < -minSwipeDistance) {
+      prevSlide();
+    }
+  };
 
   const slide = HERO_SLIDES[currentSlide];
 
   return (
     <section
-      className="relative bg-[#0d1117] min-h-[75vh] lg:min-h-[80vh] flex items-center overflow-hidden border-b border-white/10"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      className="relative bg-[#0d1117] min-h-[75vh] lg:min-h-[80vh] flex items-center overflow-hidden border-b border-white/10 select-none"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      aria-label="Home Hero Banner Carousel"
     >
+      {/* Top Auto-Rotate Progress Bar */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-white/10 z-30 overflow-hidden">
+        <motion.div
+          key={`${currentSlide}-${isPaused}`}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: isPaused ? 0 : 1 }}
+          transition={{
+            duration: isPaused ? 0 : SLIDE_DURATION_MS / 1000,
+            ease: "linear",
+          }}
+          style={{ transformOrigin: "left" }}
+          className="h-full bg-accent shadow-[0_0_10px_rgba(220,38,38,0.9)]"
+        />
+      </div>
+
       {/* Dark Slate Textured Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-900 via-[#121620] to-[#0a0d12]" />
 
@@ -138,12 +189,34 @@ export function Hero() {
       {/* Subtle Radial Glow behind right product showcase */}
       <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[550px] h-[550px] bg-red-600/10 rounded-full blur-[130px] pointer-events-none" />
 
+      {/* Left Chevron Navigation Button */}
+      <button
+        onClick={prevSlide}
+        aria-label="Previous slide"
+        className="hidden sm:flex absolute left-3 lg:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 items-center justify-center rounded-full bg-black/50 border border-white/15 text-white/80 hover:text-white hover:bg-accent hover:border-accent transition-all duration-200 shadow-xl backdrop-blur-sm"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+
+      {/* Right Chevron Navigation Button */}
+      <button
+        onClick={nextSlide}
+        aria-label="Next slide"
+        className="hidden sm:flex absolute right-3 lg:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 items-center justify-center rounded-full bg-black/50 border border-white/15 text-white/80 hover:text-white hover:bg-accent hover:border-accent transition-all duration-200 shadow-xl backdrop-blur-sm"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+
       {/* Hero Content Container */}
       <div className="relative z-20 max-w-[1340px] mx-auto px-6 sm:px-10 lg:px-14 w-full py-12 lg:py-16">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
           {/* Left Column: Text & Bullet Points */}
-          <div className="lg:col-span-6 text-left">
+          <div
+            className="lg:col-span-6 text-left"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
@@ -221,7 +294,11 @@ export function Hero() {
           </div>
 
           {/* Right Column: Seamless Product Array Showcase */}
-          <div className="lg:col-span-6 relative flex justify-center items-center">
+          <div
+            className="lg:col-span-6 relative flex justify-center items-center"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
@@ -268,20 +345,31 @@ export function Hero() {
 
         </div>
 
-        {/* Bottom Slide Indicators / Pagination Dots */}
-        <div className="mt-8 lg:mt-10 flex items-center justify-center gap-2.5 z-30">
-          {HERO_SLIDES.map((s, idx) => (
-            <button
-              key={s.id}
-              onClick={() => setCurrentSlide(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                currentSlide === idx
-                  ? "w-8 bg-accent shadow-md shadow-accent/50"
-                  : "w-2 bg-white/30 hover:bg-white/60"
-              }`}
-            />
-          ))}
+        {/* Bottom Slide Indicators / Pagination Dots & Play/Pause Controls */}
+        <div className="mt-8 lg:mt-10 flex items-center justify-center gap-3 z-30">
+          <button
+            onClick={() => setIsPaused((prev) => !prev)}
+            aria-label={isPaused ? "Play slide rotation" : "Pause slide rotation"}
+            className="p-1.5 rounded-full bg-white/10 border border-white/20 text-white/70 hover:text-white hover:bg-white/20 transition-all text-xs"
+            title={isPaused ? "Resume auto-rotation" : "Pause auto-rotation"}
+          >
+            {isPaused ? <Play className="w-3.5 h-3.5 fill-current" /> : <Pause className="w-3.5 h-3.5 fill-current" />}
+          </button>
+
+          <div className="flex items-center gap-2">
+            {HERO_SLIDES.map((s, idx) => (
+              <button
+                key={s.id}
+                onClick={() => goToSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}: ${s.highlightText}`}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  currentSlide === idx
+                    ? "w-8 bg-accent shadow-md shadow-accent/50"
+                    : "w-2.5 bg-white/30 hover:bg-white/60"
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
       </div>
@@ -291,3 +379,4 @@ export function Hero() {
     </section>
   );
 }
+
