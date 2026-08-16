@@ -173,3 +173,5 @@ Badotherm, Yokogawa, ABB, Emerson, Rotork, Endress+Hauser, Siemens, Honeywell.
 - **Industries**: https://www.akshardeep.com/industries
 - **Services**: https://www.akshardeep.com/services
 - **Contact**: https://www.akshardeep.com/contact
+- **Privacy Policy**: https://www.akshardeep.com/privacy-policy
+- **Terms & Conditions**: https://www.akshardeep.com/terms-and-conditions
