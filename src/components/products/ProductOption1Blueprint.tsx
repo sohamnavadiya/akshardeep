@@ -1,11 +1,128 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MessageCircle, Sparkles, Wrench, Layers } from "lucide-react";
+import { ArrowRight, MessageCircle, Sparkles, Wrench, Layers, ChevronLeft, ChevronRight } from "lucide-react";
 import { COMPANY, type Product, type SubProduct, type SpecRow, type SpecSection } from "@/lib/constants";
 import { trackQuoteRequest } from "@/lib/analytics";
+
+/* ─── Hero Variant Slider ─── */
+function HeroVariantSlider({ product }: { product: Product }) {
+  const hasSubProducts = product.subProducts && product.subProducts.length > 0;
+
+  // Build slides: hero + each sub-product main image
+  const slides = hasSubProducts
+    ? product.subProducts!.map((sub) => ({
+        image: sub.image,
+        label: sub.name,
+        model: sub.model || "",
+      }))
+    : product.images.map((img, i) => ({
+        image: img,
+        label: i === 0 ? product.name : `Variant ${i}`,
+        model: "",
+      }));
+
+  const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const next = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % slides.length);
+  }, [slides.length]);
+
+  const prev = useCallback(() => {
+    setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  }, [slides.length]);
+
+  // Auto-advance every 3.5s unless paused
+  useEffect(() => {
+    if (isPaused || slides.length <= 1) return;
+    const timer = setInterval(next, 3500);
+    return () => clearInterval(timer);
+  }, [isPaused, next, slides.length]);
+
+  if (slides.length === 0) return null;
+
+  return (
+    <div
+      className="relative h-72 sm:h-80 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Image area */}
+      <div className="relative flex-1 flex items-center justify-center p-6">
+        {slides.map((slide, idx) => (
+          <div
+            key={slide.image}
+            className={`absolute inset-0 flex items-center justify-center p-6 transition-all duration-500 ease-in-out ${
+              idx === current
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-95 pointer-events-none"
+            }`}
+          >
+            <Image
+              src={slide.image}
+              alt={slide.label}
+              fill
+              className="object-contain p-4"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              priority={idx === 0}
+            />
+          </div>
+        ))}
+
+        {/* Nav arrows */}
+        {slides.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              aria-label="Previous variant"
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-accent hover:text-white hover:border-accent transition-all cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={next}
+              aria-label="Next variant"
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-accent hover:text-white hover:border-accent transition-all cursor-pointer"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Bottom bar: label + dots */}
+      {slides.length > 1 && (
+        <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 border-t border-slate-100">
+          <div className="min-w-0 flex-1 mr-3">
+            <p className="text-xs font-bold text-slate-800 truncate">
+              {slides[current].label}
+            </p>
+            {slides[current].model && (
+              <p className="text-[10px] text-slate-500 truncate">{slides[current].model}</p>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrent(idx)}
+                aria-label={`Go to variant ${idx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  idx === current
+                    ? "w-5 bg-accent"
+                    : "w-2 bg-slate-300 hover:bg-slate-500"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 // Keys that belong to "Features" section
 const FEATURES_KEYS = new Set([
@@ -295,14 +412,8 @@ export function ProductOption1Blueprint({ product }: Props) {
               </div>
             </div>
 
-            <div className="lg:col-span-5 relative h-72 sm:h-80 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex items-center justify-center">
-              <Image
-                src={product.heroImage}
-                alt={product.name}
-                fill
-                className="object-contain p-4"
-                priority
-              />
+            <div className="lg:col-span-5">
+              <HeroVariantSlider product={product} />
             </div>
           </div>
         </div>
