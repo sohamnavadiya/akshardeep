@@ -1,14 +1,65 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MessageCircle, Sparkles, Wrench, Layers, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, MessageCircle, Sparkles, Wrench, Layers, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { COMPANY, type Product, type SubProduct, type SpecRow, type SpecSection } from "@/lib/constants";
 import { trackQuoteRequest } from "@/lib/analytics";
+import { ProductImageModal, type LightboxImage } from "./ProductImageModal";
+
+function getProductGalleryImages(product: Product): LightboxImage[] {
+  const images: LightboxImage[] = [];
+  const seen = new Set<string>();
+
+  const addImage = (src: string, title: string, model?: string) => {
+    if (!src || seen.has(src)) return;
+    seen.add(src);
+    images.push({
+      src,
+      title,
+      model,
+      category: product.category,
+    });
+  };
+
+  // 1. Add hero image
+  if (product.heroImage) {
+    addImage(product.heroImage, product.name, "Overview");
+  }
+
+  // 2. Add product images
+  if (product.images) {
+    product.images.forEach((img, i) => {
+      addImage(img, `${product.name} (View ${i + 1})`);
+    });
+  }
+
+  // 3. Add all subproducts and their images
+  if (product.subProducts) {
+    product.subProducts.forEach((sub) => {
+      if (sub.image) {
+        addImage(sub.image, sub.name, sub.model);
+      }
+      if (sub.images) {
+        sub.images.forEach((img, i) => {
+          addImage(img, `${sub.name} (View ${i + 1})`, sub.model);
+        });
+      }
+    });
+  }
+
+  return images;
+}
 
 /* ─── Hero Variant Slider ─── */
-function HeroVariantSlider({ product }: { product: Product }) {
+function HeroVariantSlider({
+  product,
+  onOpenModal,
+}: {
+  product: Product;
+  onOpenModal: (imgSrc: string) => void;
+}) {
   const hasSubProducts = product.subProducts && product.subProducts.length > 0;
 
   // Build slides: hero + each sub-product main image
@@ -18,7 +69,7 @@ function HeroVariantSlider({ product }: { product: Product }) {
         label: sub.name,
         model: sub.model || "",
       }))
-    : product.images.map((img, i) => ({
+    : (product.images && product.images.length > 0 ? product.images : [product.heroImage]).map((img, i) => ({
         image: img,
         label: i === 0 ? product.name : `Variant ${i}`,
         model: "",
@@ -46,18 +97,19 @@ function HeroVariantSlider({ product }: { product: Product }) {
 
   return (
     <div
-      className="relative h-72 sm:h-80 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col overflow-hidden"
+      className="relative h-72 sm:h-80 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col overflow-hidden group"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* Image area */}
-      <div className="relative flex-1 flex items-center justify-center p-6">
+      <div className="relative flex-1 flex items-center justify-center p-6 cursor-zoom-in">
         {slides.map((slide, idx) => (
           <div
             key={slide.image}
+            onClick={() => onOpenModal(slide.image)}
             className={`absolute inset-0 flex items-center justify-center p-6 transition-all duration-500 ease-in-out ${
               idx === current
-                ? "opacity-100 scale-100"
+                ? "opacity-100 scale-100 cursor-zoom-in"
                 : "opacity-0 scale-95 pointer-events-none"
             }`}
           >
@@ -65,25 +117,43 @@ function HeroVariantSlider({ product }: { product: Product }) {
               src={slide.image}
               alt={slide.label}
               fill
-              className="object-contain p-4"
+              className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 1024px) 100vw, 40vw"
               priority={idx === 0}
             />
           </div>
         ))}
 
+        {/* Floating Zoom Button */}
+        <button
+          type="button"
+          onClick={() => onOpenModal(slides[current].image)}
+          aria-label="Click to zoom image"
+          title="Click to zoom image"
+          className="absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-accent shadow-sm border border-slate-200/80 transition-all text-xs font-semibold cursor-pointer group/btn"
+        >
+          <ZoomIn className="w-3.5 h-3.5 text-slate-500 group-hover/btn:text-accent" />
+          <span className="hidden sm:inline text-[11px]">Click to zoom</span>
+        </button>
+
         {/* Nav arrows */}
         {slides.length > 1 && (
           <>
             <button
-              onClick={prev}
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
               aria-label="Previous variant"
               className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-accent hover:text-white hover:border-accent transition-all cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
-              onClick={next}
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
               aria-label="Next variant"
               className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 hover:bg-accent hover:text-white hover:border-accent transition-all cursor-pointer"
             >
@@ -166,15 +236,7 @@ type Props = {
   relatedProducts: Product[];
 };
 
-type TabId = "features" | "specifications" | "materials";
-
-const TABS: { id: TabId; label: string; icon: typeof Sparkles }[] = [
-  { id: "features", label: "Features", icon: Sparkles },
-  { id: "specifications", label: "Specifications", icon: Wrench },
-  { id: "materials", label: "Materials", icon: Layers },
-];
-
-function VariantTabbedSpecs({
+function VariantSpecs({
   sub,
   idx,
   getWhatsAppUrl,
@@ -187,16 +249,10 @@ function VariantTabbedSpecs({
 }) {
   const grouped = groupSpecs(sub.specs);
 
-  // Determine which tabs have content
-  const availableTabs = TABS.filter((tab) => grouped[tab.id].length > 0);
-  const [activeTab, setActiveTab] = useState<TabId>(
-    availableTabs.length > 0 ? availableTabs[0].id : "specifications"
-  );
-
   return (
-    <div className="lg:col-span-8 space-y-4">
+    <div className="lg:col-span-8 space-y-6">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
         <div>
           <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
             Variant {idx + 1}
@@ -210,76 +266,68 @@ function VariantTabbedSpecs({
         )}
       </div>
 
-      {/* Tab Navigation */}
-      <div className="border-b border-slate-200">
-        <nav className="flex gap-0 -mb-px" aria-label="Spec tabs">
-          {availableTabs.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`
-                  relative flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all
-                  ${isActive
-                    ? "text-accent border-b-2 border-accent bg-accent/5"
-                    : "text-slate-500 hover:text-slate-800 border-b-2 border-transparent hover:border-slate-300"
-                  }
-                `}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                {tab.label}
-                <span className={`ml-1 text-[10px] font-mono rounded-full px-1.5 py-0.5 ${isActive ? "bg-accent/10 text-accent" : "bg-slate-100 text-slate-500"}`}>
-                  {grouped[tab.id].length}
-                </span>
-              </button>
-            );
-          })}
-        </nav>
-      </div>
-
-      {/* Tab Content */}
-      <div className="min-h-[120px]">
-        {activeTab === "features" && grouped.features.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {grouped.features.map((sp) =>
-              sp.value.split(",").map((feat, i) => (
-                <span
-                  key={`${sp.key}-${i}`}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full"
-                >
-                  <Sparkles className="w-3 h-3 text-accent/70" />
-                  {feat.trim()}
-                </span>
-              ))
-            )}
+      {/* Unified Sections */}
+      <div className="space-y-5">
+        {/* Features */}
+        {grouped.features.length > 0 && (
+          <div className="space-y-2.5">
+            <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500">
+              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              Features
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {grouped.features.map((sp) =>
+                sp.value.split(",").map((feat, i) => (
+                  <span
+                    key={`${sp.key}-${i}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full"
+                  >
+                    <Sparkles className="w-3 h-3 text-accent" />
+                    {feat.trim()}
+                  </span>
+                ))
+              )}
+            </div>
           </div>
         )}
 
-        {activeTab === "specifications" && grouped.specifications.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
-            {grouped.specifications.map((sp) => (
-              <div key={sp.key} className="flex items-start gap-2 py-1.5 border-b border-slate-100 last:border-b-0">
-                <span className="text-xs font-bold text-slate-500 whitespace-nowrap min-w-[110px]">
-                  {sp.key}
-                </span>
-                <span className="text-xs font-medium text-slate-900">{sp.value}</span>
-              </div>
-            ))}
+        {/* Specifications */}
+        {grouped.specifications.length > 0 && (
+          <div className="space-y-2.5">
+            <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500">
+              <Wrench className="w-3.5 h-3.5 text-accent" />
+              Specifications
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1">
+              {grouped.specifications.map((sp) => (
+                <div key={sp.key} className="flex items-start gap-2 py-1.5 border-b border-slate-100 last:border-b-0">
+                  <span className="text-xs font-bold text-slate-500 whitespace-nowrap min-w-[110px]">
+                    {sp.key}
+                  </span>
+                  <span className="text-xs font-medium text-slate-900">{sp.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
-        {activeTab === "materials" && grouped.materials.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
-            {grouped.materials.map((sp) => (
-              <div key={sp.key} className="flex items-start gap-2 py-1.5 border-b border-slate-100 last:border-b-0">
-                <span className="text-xs font-bold text-slate-500 whitespace-nowrap min-w-[110px]">
-                  {sp.key}
-                </span>
-                <span className="text-xs font-medium text-slate-900">{sp.value}</span>
-              </div>
-            ))}
+        {/* Materials */}
+        {grouped.materials.length > 0 && (
+          <div className="space-y-2.5">
+            <h4 className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500">
+              <Layers className="w-3.5 h-3.5 text-accent" />
+              Materials
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1">
+              {grouped.materials.map((sp) => (
+                <div key={sp.key} className="flex items-start gap-2 py-1.5 border-b border-slate-100 last:border-b-0">
+                  <span className="text-xs font-bold text-slate-500 whitespace-nowrap min-w-[110px]">
+                    {sp.key}
+                  </span>
+                  <span className="text-xs font-medium text-slate-900">{sp.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -301,7 +349,13 @@ function VariantTabbedSpecs({
   );
 }
 
-function SubProductGallery({ sub }: { sub: SubProduct }) {
+function SubProductGallery({
+  sub,
+  onOpenModal,
+}: {
+  sub: SubProduct;
+  onOpenModal: (imgSrc: string) => void;
+}) {
   const images = sub.images && sub.images.length > 0 ? sub.images : [sub.image];
   const [activeIdx, setActiveIdx] = useState(0);
 
@@ -314,17 +368,41 @@ function SubProductGallery({ sub }: { sub: SubProduct }) {
   }, [images.length]);
 
   return (
-    <div className="lg:col-span-4 space-y-3">
+    <div className="lg:col-span-4 space-y-3 lg:sticky lg:top-24 self-start">
       {/* Main Image */}
-      <div className="relative h-60 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center p-4">
+      <div
+        onClick={() => onOpenModal(images[activeIdx])}
+        className="relative h-60 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center p-4 cursor-zoom-in group hover:border-slate-300 transition-colors"
+      >
         <Image
           src={images[activeIdx]}
           alt={`${sub.name} - View ${activeIdx + 1}`}
           fill
-          className="object-contain p-2"
+          className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 1024px) 100vw, 33vw"
         />
+
+        {/* Zoom trigger badge */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpenModal(images[activeIdx]);
+          }}
+          aria-label={`Zoom ${sub.name} image`}
+          title="Click to zoom image"
+          className="absolute top-2.5 right-2.5 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/90 hover:bg-white text-slate-700 hover:text-accent shadow-sm border border-slate-200/80 transition-all text-xs font-semibold cursor-pointer group/btn"
+        >
+          <ZoomIn className="w-3.5 h-3.5 text-slate-500 group-hover/btn:text-accent" />
+          <span className="hidden sm:inline text-[10px]">Zoom</span>
+        </button>
+
+        {/* Hover hint */}
+        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-[10px] font-medium text-slate-600 bg-white/90 px-2.5 py-0.5 rounded-full shadow-sm border border-slate-200/60 whitespace-nowrap">
+          Click to zoom & inspect
+        </span>
       </div>
+
       {/* Thumbnails */}
       {images.length > 1 && (
         <div className="flex gap-2 justify-center">
@@ -332,7 +410,7 @@ function SubProductGallery({ sub }: { sub: SubProduct }) {
             <button
               key={img}
               onClick={() => setActiveIdx(i)}
-              className={`relative w-16 h-16 rounded-lg border-2 overflow-hidden transition-all ${
+              className={`relative w-16 h-16 rounded-lg border-2 overflow-hidden transition-all cursor-pointer ${
                 i === activeIdx
                   ? "border-accent shadow-md"
                   : "border-slate-200 hover:border-slate-400"
@@ -355,6 +433,19 @@ function SubProductGallery({ sub }: { sub: SubProduct }) {
 
 export function ProductOption1Blueprint({ product }: Props) {
   const hasSubProducts = product.subProducts && product.subProducts.length > 0;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalIndex, setModalIndex] = useState(0);
+
+  const galleryImages = useMemo(() => getProductGalleryImages(product), [product]);
+
+  const handleOpenModal = useCallback(
+    (targetSrc: string) => {
+      const foundIdx = galleryImages.findIndex((img) => img.src === targetSrc);
+      setModalIndex(foundIdx !== -1 ? foundIdx : 0);
+      setModalOpen(true);
+    },
+    [galleryImages]
+  );
 
   const getWhatsAppUrl = (sub?: SubProduct | null) => {
     let text = `Hello Akshardeep Engineers,\n\nI would like to inquire about:\n📌 *Product:* ${product.name}`;
@@ -413,7 +504,7 @@ export function ProductOption1Blueprint({ product }: Props) {
             </div>
 
             <div className="lg:col-span-5">
-              <HeroVariantSlider product={product} />
+              <HeroVariantSlider product={product} onOpenModal={handleOpenModal} />
             </div>
           </div>
         </div>
@@ -446,13 +537,13 @@ export function ProductOption1Blueprint({ product }: Props) {
               {product.subProducts!.map((sub, idx) => (
                 <div
                   key={sub.name + idx}
-                  className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+                  className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
                 >
                   {/* Variant Image Gallery */}
-                  <SubProductGallery sub={sub} />
+                  <SubProductGallery sub={sub} onOpenModal={handleOpenModal} />
 
-                  {/* Variant Info & Specs - Tabbed */}
-                  <VariantTabbedSpecs
+                  {/* Variant Info & Specs */}
+                  <VariantSpecs
                     sub={sub}
                     idx={idx}
                     getWhatsAppUrl={getWhatsAppUrl}
@@ -465,7 +556,14 @@ export function ProductOption1Blueprint({ product }: Props) {
         </section>
       )}
 
-
+      {/* Lightbox / Zoom Modal */}
+      <ProductImageModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        images={galleryImages}
+        currentIndex={modalIndex}
+        onIndexChange={setModalIndex}
+      />
     </div>
   );
 }
